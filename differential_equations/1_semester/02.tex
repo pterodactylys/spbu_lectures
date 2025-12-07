@@ -1,73 +1,75 @@
 \documentclass[12pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T2A]{fontenc}
-\usepackage[russian,english]{babel}
+\usepackage[english,russian]{babel}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage[a4paper,margin=2cm]{geometry}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{mathtools}
+\onehalfspacing
+\sloppy
 \author{Андрей}
 
-\title{2. Уравнение 1-го порядка, разрешенного,
- относительно производной. Решение уравнения. 
- Неявное и параметрическое задания решения.}
+	\title{Уравнение первого порядка, разрешённое относительно производной: решения, неявное и параметрическое задания}
 
 \begin{document}
 
 \maketitle
 
-\section{Оcновные понятия и определения}
-\subsection{Понятие об уравнении 1-го порядка, 
-разрешенном относительно производной.}
+\section{Основные понятия и определения}
+\subsection{Уравнение первого порядка, разрешённое относительно производной}
 Уравнение первого порядка имеет вид:
-\begin{equation}
-    F'(x,y,y')=0,
+\begin{equation}\label{eq:first-order-general}
+    F(x,y,y') = 0,
 \end{equation}
 Будем рассматривать уравнение, разрешенное
 относительно производной, т.е. уравнение вида:
-\begin{equation}
-    \frac{dy}{dx}=f(x,y).
+\begin{equation}\label{eq:first-order-solvable}
+    \frac{dy}{dx} = f(x,y).
 \end{equation}
 Так же будем рассматривать перевернутое уравнение:
-\begin{equation}
-    \frac{dx}{dy}=\frac{1}{f(x,y)},
+\begin{equation}\label{eq:first-order-inverted}
+    \frac{dx}{dy} = \frac{1}{f(x,y)},
 \end{equation}
 используя его в окрестностях тех точек, где
 $f(x,y)$ обращается в бесконечность.
 
 Во многих случаях целесообразно рассматривать
-вместо уравнений (2) и (3) одно равносильное
+вместо уравнений \eqref{eq:first-order-solvable} и \eqref{eq:first-order-inverted} одно равносильное
 им уравнение:
-\begin{equation}
-    dy - f(x,y)dx = 0.
+\begin{equation}\label{eq-differential-form}
+    dy - f(x,y)\,dx = 0.
 \end{equation}
 $x,y$ в этом уравнении равноправны, то есть можно
 принять за независимую переменную как $x$, так и $y$.
-Умножая (4) на некоторую функцию $N(x,y)$,
+Умножая уравнение \eqref{eq-differential-form} на некоторую функцию $N(x,y)$,
 получаем симметричное уравнение:
-\begin{equation}
-    M(x,y)dx + N(x,y)dy = 0,
+\begin{equation}\label{eq-symmetric}
+    M(x,y)\,dx + N(x,y)\,dy = 0,
 \end{equation}
 где $M(x,y)=-N(x,y)f(x,y)$. Работает и обратное:
-всякое уравнение вида (5) можно привести к виду
-(2) или (3), разрешая его относительно $\frac{dy}{dx}$
-или $\frac{dx}{dy}$ соответственно. То есть уравнение
-(5) равносильно следующим двум уравнениям:
+всякое уравнение вида \eqref{eq-symmetric} можно привести к виду
+\eqref{eq:first-order-solvable} или \eqref{eq:first-order-inverted}, разрешая его соответственно относительно $\dfrac{dy}{dx}$
+или $\dfrac{dx}{dy}$. То есть уравнение \eqref{eq-symmetric} равносильно следующим двум уравнениям:
 \begin{equation}
-    \frac{dy}{dx}=-\frac{M(x,y)}{N(x,y)} \quad \text{и} \quad
-    \frac{dx}{dy}=-\frac{N(x,y)}{M(x,y)}.
+    \frac{dy}{dx} = -\frac{M(x,y)}{N(x,y)} \quad \text{и} \quad
+    \frac{dx}{dy} = -\frac{N(x,y)}{M(x,y)}.
 \end{equation}
 Иногда уравнение записывают в так называемой
 симметрической форме:
 \begin{equation}
-    \frac{dx}{X(x,y)}=\frac{dy}{Y(x,y)},
+    \frac{dx}{X(x,y)} = \frac{dy}{Y(x,y)},
 \end{equation}
 
 \subsection{Решение уравнения}
-Предположим, что правая часть уравнения (2), 
-\[\frac{dy}{dx}=f(x,y).\]
+Предположим, что правая часть уравнения \eqref{eq:first-order-solvable}, 
+\[\frac{dy}{dx} = f(x,y),\]
 определена на некотором подмножестве
 $A$ вещественной плоскости $(x,y)$.
 Функцию $y=y(x)$, определенную на этом интервале,
-будем называть \textbf{решением уравнения (2) на $A$},
+будем называть \textbf{решением уравнения \eqref{eq:first-order-solvable} на $A$},
 если:
 \begin{enumerate}
     \item Существует производная $y'(x)$ для всех $x$
@@ -80,14 +82,14 @@ $A$ вещественной плоскости $(x,y)$.
 множеству $A$ и значение производной $y'(x)$
 равно значению функции $f(x,y)$ в этой точке.
 \end{enumerate}
-Так как мы рассматриваем и перевернутое уравнение (3),
+Так как мы рассматриваем и перевернутое уравнение \eqref{eq:first-order-inverted},
 то и решения $y=y(x)$ этого перевернутого уравнения
 будем присоединять к решениям уравнения (2).
 
-\subsection{Неявное и параметрическое задания решения.}
+\subsection{Неявное и параметрическое задания решения}
 Решение дифференциального уравнения не всегда
 может быть выражено в виде явной функции $y=y(x)$.
-В таких случаях решение может быть задано в \textbf{неявной форме:}
+В таких случаях решение может быть задано в \textbf{неявной форме}:
 \begin{equation}
     \Phi(x,y)=0.
 \end{equation}
@@ -96,14 +98,14 @@ $A$ вещественной плоскости $(x,y)$.
 $y$ как неявную функцию от $x$, $y=y(x)$,
 которая является решением уравнения (2).
 
-В этом случае, дифференцируя (8) по $x$ и заменяя
+В этом случае, дифференцируя уравнение \eqref{eq:implicit} по $x$ и заменяя
 $dy/dx$ на $f(x,y)$, получаем:
 \begin{equation}
     \frac{\partial \Phi}{\partial x} +
     \frac{\partial \Phi}{\partial y} f(x,y) = 0.
 \end{equation}
 
-Еще одним способом задания решения
+Ещё одним способом задания решения
 уравнения (2) является \textbf{параметрическое задание:}
 \begin{equation}
     \begin{cases}
@@ -112,7 +114,7 @@ $dy/dx$ на $f(x,y)$, получаем:
     \end{cases}
 \end{equation}
 Будем говорить, что это задание определяет
-решение уравнения (2) в параметпрической форме
+решение уравнения (2) в параметрической форме
 на интервале $(t_0, t_1)$, если на этом интервале
 верно тождество:
 \begin{equation}
