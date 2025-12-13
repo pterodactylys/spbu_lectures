@@ -1,0 +1,339 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage[a4paper, left=1.5cm, right=1.5cm, top=1.5cm, bottom=1.5cm]{geometry}\setlength{\parindent}{0pt}
+
+\title{ Билет 2. Существование решений систем уравнений}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+Рассмотрим систему уравнений:
+\begin{equation}
+F_j(x_1, \dots, x_n, y_1, \dots, y_m) = 0, \quad j = \overline{1,m} \tag{1}
+\end{equation}
+где $x = (x_1, \dots, x_n)$ — вектор аргументов, $y = (y_1, \dots, y_m)$ — вектор неизвестных. Имеем $m$ уравнений и $m$ неизвестных.
+
+Мы хотим получить условия однозначной разрешимости системы (1), то есть найти функции $y_j = f_j(x_1, \dots, x_n)$, такие что
+\[
+F_j(x_1, \dots, x_n, f_1(x), \dots, f_m(x)) \equiv 0.
+\]
+
+Для этого необходимо, чтобы матрица Якоби была квадратной, так как определитель существует только для квадратных матриц. Это требует, чтобы число уравнений совпадало с числом неизвестных, то есть $n = m$.
+
+Хотим обобщить для нелинейных систем (путем рассмотрения локально в точке $(x^{(0)}, y^{(0)})$ в окрестности этой точки, заменить систему на линейную систему $A\vec{y} = \vec{b}$ и получить условие разрешимости $\det A \neq 0$).
+
+Рассматриваем систему:
+\[
+\begin{cases}
+y_1 = f_1(x_1, \dots, x_n) \\
+\cdots \\
+y_m = f_m(x_1, \dots, x_n)  \tag{4}
+\end{cases}
+\]
+причем $x \in D \subset \mathbb{R}^n$, и функции $f_1, \dots, f_m$ непрерывны и имеют непрерывные частные производные первого порядка.
+
+\subsection*{Матрица Якоби}
+
+Рассмотрим линейную систему уравнений $A\vec{y} = \vec{b}$. Она имеет единственное решение тогда и только тогда, когда матрица $A$ является квадратной и невырожденной, то есть $\det A \neq 0$.
+
+Аналогичный подход применим и к нелинейной системе (1). Для того чтобы можно было локально выразить $y$ через $x$, нужно, чтобы матрица Якоби по переменным $y$, $\frac{\partial F}{\partial y}$, была квадратной (что требует $m=n$) и невырожденной ($\det \left( \frac{\partial F}{\partial y} \right) \neq 0$).
+
+Так как определитель существует только для квадратных матриц, то именно условие $\det \left( \frac{\partial F}{\partial y} \right) \neq 0$ является ключевым.
+
+В случае $n = m$ можно рассмотреть определитель Якобиан:
+\[
+\left| \frac{\partial F}{\partial x} \right| = \frac{D(y_1, \dots, y_m)}{D(x_1, \dots, x_n)} \neq 0
+\]
+
+\subsection*{Свойства Якобиана}
+
+Рассмотрим еще одну систему:
+\begin{equation}
+\begin{cases}
+x_i = \varphi_1(t_1, \dots, t_m) \\
+\cdots \\
+x_m = \varphi_n(t_1, \dots, t_m) \\
+\end{cases}
+\tag{5}
+\end{equation}
+где $t \in Q \subset \mathbb{R}^n$, и $\varphi_i$ непрерывны.
+
+Если $\frac{\partial \varphi}{\partial x}$ и $\frac{\partial x}{\partial t}$ матрицы Якоби, то их произведение дает матрицу $\left\{ Z_{ij} \right\}_{i,j=1}^{m}$, где
+\[
+Z_{ij} = \sum_{k=1}^{m} \frac{\partial y_i}{\partial x_k} \cdot \frac{\partial x_k}{\partial t_j}.
+\]
+
+По правилу дифференцирования сложной функции:
+\[
+\frac{\partial \widetilde{y}_i}{\partial t_j} = \sum_{k=1}^{m} \frac{\partial \varphi_i}{\partial x_k} \cdot \frac{\partial x_k}{\partial t_j},
+\]
+где $\widetilde{y}_i(t) = \varphi_i(x_1(t), \dots, x_m(t))$.
+
+Тогда определитель Якобиана сложной функции равен произведению определителей Якобианов составляющих функций:
+\[
+\frac{D(\widetilde{y}_1, \dots, \widetilde{y}_m)}{D(t_1, \dots, t_m)} =
+\frac{D(y_1, \dots, y_m)}{D(x_1, \dots, x_m)} \cdot
+\frac{D(x_1, \dots, x_m)}{D(t_1, \dots, t_m)}.
+\]
+
+Это следует из свойства определителей: $\det(AB) = \det A \cdot \det B$, примененного к матрицам Якоби:
+\[
+\det \left( \frac{\partial \widetilde{y}}{\partial t} \right) =
+\det \left( \frac{\partial \varphi}{\partial x} \cdot \frac{\partial x}{\partial t} \right) =
+\det \left( \frac{\partial \varphi}{\partial x} \right) \cdot
+\det \left( \frac{\partial x}{\partial t} \right).
+\]
+
+Из этого свойства получим другое свойство.
+
+Рассмотрим систему (4): $\vec{y} = \vec{f}(x)$, где $n = m$, и функция $\vec{f}$ непрерывно дифференцируема. Предположим, что мы смогли обратить эту систему и получили систему (5): $\vec{x} = \vec{g}(y)$. Эти системы являются \textbf{взаимнообратными}, потому что если подставить выражение для $\vec{x}$ из системы (5) в систему (4), мы получим тождественное равенство:
+\[
+\vec{y} = \vec{f}(\vec{g}(y)) \equiv y,
+\]
+и наоборот, подставив $\vec{y}$ из (4) в (5):
+\[
+\vec{x} = \vec{g}(\vec{f}(x)) \equiv x.
+\]
+
+Следовательно, можем написать:
+\[
+\frac{D(y_1, \dots, y_m)}{D(x_1, \dots, x_m)} \cdot \frac{D(x_1, \dots, x_m)}{D(y_1, \dots, y_m)} = \frac{D(y_1, \dots, y_m)}{D(y_1, \dots, y_m)}.
+\]
+
+В правой части стоит определитель Якобиана от переменных $y$ по тем же переменным $y$. Это определитель матрицы частных производных $\frac{\partial y_i}{\partial y_j}$, которая является \textbf{единичной матрицей} (так как $\frac{\partial y_i}{\partial y_j} = \delta_{ij}$ — символ Кронекера).
+
+Следовательно:
+\[
+\frac{D(y_1, \dots, y_m)}{D(y_1, \dots, y_m)} = \det(I) = 1.
+\]
+
+Таким образом, мы получаем:
+\[
+\frac{D(y_1, \dots, y_m)}{D(x_1, \dots, x_m)} \cdot \frac{D(x_1, \dots, x_m)}{D(y_1, \dots, y_m)} = 1.
+\]
+
+Это означает, что оба определителя Якобианов не могут быть равны нулю. Из этого равенства следует, что один Якобиан является обратной величиной к другому:
+\[
+\frac{D(y_1, \dots, y_m)}{D(x_1, \dots, x_m)} = \frac{1}{\dfrac{D(x_1, \dots, x_m)}{D(y_1, \dots, y_m)}}.
+\]
+
+Мы обобщили эту теорему об обратной функции:
+
+Пусть дана функция $y = f(x)$, и пусть в точке $x_0$ выполнено условие $f'(x_0) \neq 0$.
+
+Тогда существует обратная функция $x = g(y)$, и ее производная в точке $y_0 = f(x_0)$ вычисляется по формуле:
+
+\[
+x'(y_0) = \frac{1}{f'(x_0)}.
+\]
+
+
+\section*{Постановка задачи}
+
+Рассмотрим систему уравнений:
+\begin{equation}
+F(x, y) = 0, \tag{1}
+\end{equation}
+где система состоит из $m$ уравнений, $x \in \mathbb{R}^n$, $y \in \mathbb{R}^m$
+
+Рассмотрим точку $(x^{(0)}, y^{(0)}) \in \mathbb{R}^{n+m}$
+
+Рассмотрим открытую окрестность точки $(x^{(0)}, y^{(0)})$ вида:
+\begin{equation}
+\begin{cases}
+|x_i - x_i^{(0)}| < \alpha_i, & i = \overline{1,n} \\
+|y_j - y_j^{(0)}| < \beta_j, & j = \overline{1,m}
+\end{cases}
+\tag{2}
+\end{equation}
+где $\alpha_i > 0$, $\beta_j > 0$ — некоторые положительные числа.
+\\\\
+\textbf{Определение однозначной разрешимости}
+
+В параллелепипеде (2) система (1) однозначным образом определяет $y_j$ как функцию переменных $x_1, \dots, x_n$: $y_j = f_j(x_1, \dots, x_n)$, если для любых $\widetilde{x} \in \mathbb{R}^n$, удовлетворяющих условию
+\[
+|\widetilde{x}_i - x_i^{(0)}| < \alpha_i, \quad i = \overline{1,n},
+\]
+система $F(\widetilde{x}, y) = 0$ имеет единственное решение $\widetilde{y}$, удовлетворяющее условию
+\[
+|\widetilde{y}_j - y_j^{(0)}| < \beta_j, \quad j = \overline{1,m}.
+\]
+
+(другие решения могут существовать, но в этом (2) одно решение)
+\\\\
+
+Рассмотрим: 
+\begin{align}
+|x_i - x_i^{(0)}| &< c_i, \quad i = 1, \dots, n \\
+|y_j - y_j^{(0)}| &< d_j, \quad j = 1, \dots, m \tag{3}
+\end{align}
+\subsection*{\textbf{Теорема}}
+
+Пусть $F(x,y)$ определены в (3) и обладают следующими свойствами:
+
+\begin{enumerate}
+\item $F_j(x,y)$ — непрерывны в (3).
+\item Существуют частные производные $\frac{\partial F_j}{\partial x_i}$, $\frac{\partial F_j}{\partial y_k}$ — непрерывные ($i = \overline{1,n}; j,k = \overline{1,m}$).
+\item $F(x^{(0)}, y^{(0)}) = 0$.
+\item $\left| \frac{\partial F}{\partial y}(x^{(0)}, y^{(0)}) \right| = J(x^{(0)}, y^{(0)}) \neq 0$.
+\end{enumerate}
+
+Тогда существует открытый параллелепипед вида (2), в котором система (1) однозначно определяют $y_j$ как $f_j(x)$, причем $y_j = f_j(x)$ непрерывны и имеют непрерывные частные производные и $y^{(0)} = f(x^{(0)})$.
+
+\subsection*{Доказательство (ММИ)}
+
+\textbf{1) База индукции:} $m=1$.
+
+В этом случае $y$ — скалярная величина, а не вектор. Условие $\frac{\partial F}{\partial y}(x^{(0)}, y^{(0)}) \neq 0$ означает, что производная по $y$ не равна нулю. Это соответствует теореме о неявной функции одной переменной, которая гарантирует существование и единственность решения $y = f(x)$ в окрестности точки $x^{(0)}$. Отличие в том, что здесь мы имеем не квадратную матрицу Якоби ($n \times n$), а просто число $\frac{\partial F}{\partial y}$, которое не равно нулю.
+
+\textbf{2) Индукционне преположение:} Предположим, что теорема верна для $m-1$.
+
+\textbf{3) Шаг индукции:}Докажем ее для $m$.
+
+Рассмотрим матрицу Якоби:
+\[
+\frac{\partial F}{\partial y} =
+\begin{pmatrix}
+\frac{\partial F_1}{\partial y_1} & \cdots & \frac{\partial F_1}{\partial y_m} \\
+\vdots & \ddots & \vdots \\
+\frac{\partial F_m}{\partial y_1} & \cdots & \frac{\partial F_m}{\partial y_m}
+\end{pmatrix}.
+\]
+
+Последнее уравнение системы: $F_m(x, y_1, \dots, y_m) = 0$. По условию 4) определитель Якоби $\left| \frac{\partial F}{\partial y} \right| \neq 0$, значит, в последней строке существует ненулевой элемент. Для определенности, пусть $\frac{\partial F_m}{\partial y_m} \neq 0$.
+
+Запишем последнее уравнение системы в виде:
+\[
+F_m(x, \widetilde{y}, y_m) = 0,
+\]
+где $\widetilde{y} = (y_1, \dots, y_{m-1})$.
+
+Тогда по теореме из предыдущего параграфа, используя исходный параллелепипед (3), мы можем построить открытый параллелепипед с центром в точке $(x^{(0)}, y^{(0)})$, в котором уравнение $F_m(x, y_1, \dots, y_m) = 0$ разрешимо относительно переменной $y_m$. В результате получаем функцию $\widetilde{y}_m = g(x, \widetilde{y})$, которая является непрерывной и имеет непрерывные частные производные первого порядка. При этом выполняется равенство:
+\[
+y_m^{(0)} = g(x^{(0)}, \widetilde{y}^{(0)}),
+\]
+где $\widetilde{y}^{(0)} = (y_1^{(0)}, \dots, y_{m-1}^{(0)})$ — первые $m-1$ компоненты вектора $y^{(0)}$.
+
+Подставим это выражение для $y_m$ в первые $m-1$ уравнений системы:
+\[
+F_j(x, \widetilde{y}, g(x, \widetilde{y})) = 0, \quad j = \overline{1, m-1}.
+\]
+
+Обозначим
+\begin{equation}
+\Phi_j(x, \widetilde{y}) = F_j(x, \widetilde{y}, g(x, \widetilde{y})) \tag{6}.
+\end{equation}
+Если подставить выражение (6) в систему, то переменная $y_m$ однозначно определяет все остальные компоненты вектора $y$, то есть задача решена. Остается доказать, что система уравнений (6) однозначно разрешима в окрестности точки $(x^{(0)}, \widetilde{y}^{(0)}) \in \mathbb{R}^{n+m-1}$. Для этого применим условие 2) математической индукции, но предварительно необходимо проверить, что для системы (6) выполнены все условия теоремы.
+Имеем
+\[
+\begin{cases}
+|x_i - x_i^{(0)}| < \widetilde{\alpha}_i, & i = \overline{1,n} \\
+|\widetilde{y}_j - \widetilde{y}_j^{(0)}| < \widetilde{\beta}_j, & j = \overline{1,m-1}
+\end{cases}
+\]
+— это окрестность точки $(x^{(0)}, \widetilde{y}^{(0)})$, в которой определена система (6).
+
+Докажем, что условия выполнены.
+
+Условие на замкнутость: для этого немного урежем:
+\[
+\begin{cases}
+|x_i - x_i^{(0)}| \leq \widehat{\alpha}_i, & i = \overline{1,n} \\
+|\widetilde{y}_j - \widetilde{y}_j^{(0)}| \leq \widehat{\beta}_j, & j = \overline{1,m-1}
+\end{cases}
+\]
+и будем работать в ней. В этой окрестности функция $g(x, \widetilde{y})$ непрерывна, а значит, композиция $\Phi_j(x, \widetilde{y}) = F_j(x, \widetilde{y}, g(x, \widetilde{y}))$ также непрерывна, так как $F_j$ и $g$ непрерывны.
+
+2) Функция $\Phi_j(x, \widetilde{y})$ непрерывна, вместе с тем, что $y_m = g(x, \widetilde{y})$ — непрерывна, и получаем непрерывную суперпозицию.
+
+3) $\Phi_j(x^{(0)}, \widetilde{y}^{(0)}) = 0$. Доказано, так как
+\[
+F_j(x^{(0)}, \widetilde{y}^{(0)}, g(x^{(0)}, \widetilde{y}^{(0)})) = F_j(x^{(0)}, \widetilde{y}^{(0)}, y_m^{(0)}) = 0.
+\]
+
+Кроме того, функция $\Phi_j(x, \widetilde{y})$ является дифференцируемой, поскольку $F_j$ имеет непрерывные частные производные, а $g(x, \widetilde{y})$ также имеет непрерывные частные производные. Следовательно, $\Phi_j(x, \widetilde{y})$ является дифференцируемой функцией.
+
+Помимо этого, по теореме о неявной функции, центр $(x^{(0)}, \widetilde{y}^{(0)})$ должен удовлетворять системе (6):
+\[
+\Phi_j(x^{(0)}, \widetilde{y}^{(0)}) = 0.
+\]
+Это верно, так как $\Phi_j$ — это композиция $F_j$ и $g$, и мы уже показали, что $F_j(x^{(0)}, \widetilde{y}^{(0)}, y_m^{(0)}) = 0$.
+
+Осталось проверить условие 4): нужно, чтобы определитель Якобиана системы (6) был отличен от нуля:
+\[
+\left| \frac{\partial \Phi}{\partial \widetilde{y}}(x^{(0)}, \widetilde{y}^{(0)}) \right| \neq 0.
+\]
+
+Рассмотрим исходный Якобиан:
+\[
+\frac{\partial F}{\partial y} =
+\begin{pmatrix}
+\frac{\partial F_1}{\partial y_1} & \cdots & \frac{\partial F_1}{\partial y_{m-1}} & \frac{\partial F_1}{\partial y_m} \\
+\vdots & \ddots & \vdots & \vdots \\
+\frac{\partial F_{m-1}}{\partial y_1} & \cdots & \frac{\partial F_{m-1}}{\partial y_{m-1}} & \frac{\partial F_{m-1}}{\partial y_m} \\
+\frac{\partial F_m}{\partial y_1} & \cdots & \frac{\partial F_m}{\partial y_{m-1}} & \frac{\partial F_m}{\partial y_m}
+\end{pmatrix}.
+\]
+
+Предполагали, что последний элемент $\frac{\partial F_m}{\partial y_m} \neq 0$.
+
+По свойствам алгебры, если определитель матрицы не равен нулю, то к любой строке или столбцу можно прибавить линейную комбинацию других строк или столбцов — это не изменит значение определителя.
+
+Теперь применим следующее преобразование: к первому столбцу прибавим последний столбец, умноженный на $\frac{\partial g}{\partial y_1}$:
+
+Тогда элементы первого столбца станут равны:
+\[
+\frac{\partial F_j}{\partial y_1} + \frac{\partial F_j}{\partial y_m} \cdot \frac{\partial g}{\partial y_1}, \quad j = 1, \dots, m.
+\]
+
+Для $j = m$ этот элемент равен нулю (по определению $g$), а для $j = 1, \dots, m-1$ — это как раз частные производные функции $\Phi_j(x, \widetilde{y}) = F_j(x, \widetilde{y}, g(x, \widetilde{y}))$ по переменной $y_1$:
+\[
+\frac{\partial \Phi_j}{\partial y_1} = \frac{\partial F_j}{\partial y_1} + \frac{\partial F_j}{\partial y_m} \cdot \frac{\partial g}{\partial y_1}.
+\]
+
+Аналогично, ко второму столбцу прибавим последний столбец, умноженный на $\frac{\partial g}{\partial y_2}$, и так далее до $(m-1)$-го столбца.
+
+В результате получим матрицу:
+\[
+\begin{pmatrix}
+\frac{\partial \Phi_1}{\partial y_1} & \cdots & \frac{\partial \Phi_1}{\partial y_{m-1}} & \frac{\partial F_1}{\partial y_m} \\
+\vdots & \ddots & \vdots & \vdots \\
+\frac{\partial \Phi_{m-1}}{\partial y_1} & \cdots & \frac{\partial \Phi_{m-1}}{\partial y_{m-1}} & \frac{\partial F_{m-1}}{\partial y_m} \\
+0 & \cdots & 0 & \frac{\partial F_m}{\partial y_m}
+\end{pmatrix}.
+\]
+
+Разложим определитель этой матрицы по последней строке:
+\[
+\det \left( \frac{\partial F}{\partial y} \right) = \frac{\partial F_m}{\partial y_m} \cdot \det \left(
+\begin{array}{ccc}
+\frac{\partial \Phi_1}{\partial y_1} & \cdots & \frac{\partial \Phi_1}{\partial y_{m-1}} \\
+\vdots & \ddots & \vdots \\
+\frac{\partial \Phi_{m-1}}{\partial y_1} & \cdots & \frac{\partial \Phi_{m-1}}{\partial y_{m-1}}
+\end{array}
+\right).
+\]
+
+Обозначим последнюю матрицу как $\frac{\partial \Phi}{\partial \widetilde{y}}$. Тогда:
+\[
+\det \left( \frac{\partial F}{\partial y} \right) = \frac{\partial F_m}{\partial y_m} \cdot \det \left( \frac{\partial \Phi}{\partial \widetilde{y}} \right).
+\]
+
+Поскольку $\frac{\partial F_m}{\partial y_m} \neq 0$ и $\det \left( \frac{\partial F}{\partial y} \right) \neq 0$, то отсюда следует, что
+\[
+\det \left( \frac{\partial \Phi}{\partial \widetilde{y}} \right) \neq 0.
+\]
+
+Это означает, что определитель Якобиана системы (6) отличен от нуля, что и требовалось доказать.
+
+Таким образом, все условия теоремы выполнены для системы (6), и по предположению индукции она однозначно разрешима в окрестности точки $(x^{(0)}, \widetilde{y}^{(0)})$.
+\\\\
+Бля там еще два замечания гг бб.
+\end{document}
