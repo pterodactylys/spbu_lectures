@@ -1,0 +1,67 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[english,russian]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,margin=2cm]{geometry}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{mathtools}
+\onehalfspacing
+\sloppy
+
+\title{Достаточное условие существования решения задачи Коши. Формулировка теоремы Пикара.}
+
+\begin{document}
+
+\maketitle
+
+\section{Достаточное условие существования решения задачи Коши}
+Рассмотрим уравнение
+\begin{equation}\label{eq:general-ode}
+    y' = f(x, y),
+\end{equation}
+где $f(x, y)$ определена в некоторой области $D \subset \mathbb{R}^2$.
+Рассмотрим также точку $(x_0, y_0) \in D$ в которой $y(x_0) = y_0$.
+Получаем задачу Коши:
+\begin{equation}\label{eq:initial-condition-2}
+    \begin{cases}
+        y' = f(x, y), \\
+        y(x_0) = y_0
+    \end{cases}
+\end{equation}
+Рассматриваем $x\in (x_0, a]$, где $a > x_0$ - фиксированное число.
+Считаем, что $f(x, y)$ непрерывна в области $D = [x_0, a] \times [y_0 - b, y_0 + b]$ для некоторого $b > 0$.
+Получаем прямоугольник на плоскости $x0y$.
+
+\subsection{Дополнительные условия}
+\textbf{Условие 1.} $f(x, y)$ определена и непрерывна в области $D$.
+
+Тогда, по теормеме Вейерштрасса, $f(x, y)$ ограничена в области $D$.
+То есть существует такое число $M > 0$, что для всех $(x, y) \in D$ выполняется неравенство
+\begin{equation}\label{eq:bound-f}
+    |f(x, y)| \leq M \quad \forall (x, y) \in D.
+\end{equation}
+
+\textbf{Условие 2.} $f(x, y)$ удовлетворяет условию Липшица по переменной $y$ в области $D$.
+
+То есть существует такое число $L > 0$, что для любых двух точек $(x, y_1) \in D$ и $(x, y_2) \in D$
+выполняется неравенство
+\begin{equation}\label{eq:lipshitz}
+    |f(x, y_1) - f(x, y_2)| \leq L |y_1 - y_2|.
+\end{equation}
+
+\subsection{Теорема о существовании единственного решения задачи Коши (Теорема Пикара)}.
+Пусть $f(x, y)$ определена и непрерывна в области $D$ и удовлетворяет условиям 1 и 2.
+Тогда решение задачи Коши
+\begin{equation}\label{eq:cauchy-problem-2}
+    \begin{cases}
+        y' = f(x, y), x \in (x_0, a] \\
+        y(x_0) = y_0
+    \end{cases}
+\end{equation}
+существует и единственно на отрезке
+$[x_0, x_0 + h]$, где $h = \min\left(a - x_0, \frac{b}{M}\right)$.
+
+\end{document}
