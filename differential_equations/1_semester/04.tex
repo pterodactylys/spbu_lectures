@@ -1,0 +1,107 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[english,russian]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,margin=2cm]{geometry}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{mathtools}
+\onehalfspacing
+\sloppy
+
+\title{Задача Коши. Глобальное и локальное условие Липшица. Теорема Пикара о существовании и единственности решения задачи Коши. Особые случаи задачи }
+
+\begin{document}
+
+\maketitle
+
+\section{Примечание}
+Данный файл основан не на наших лекциях, а на материалах из видео лекций
+по дифференциальным уравнениям физического факультета МГУ. Ссылка на
+плейлист: \url{https://www.youtube.com/playlist?list=PLcsjsqLLSfNB3Uu7EL56s-JclAjjuSVw_}.
+
+\section{Скалярная Задача Коши}
+
+Рассмотрим линейное однородное дифференциальное уравнение первого порядка:
+\begin{equation}\label{eq:linear-first-order}
+    y' + p(x)y = 0.
+\end{equation}
+Данное уравнение вместе с дополнительным условием
+\begin{equation}\label{eq:initial-condition}
+    y(x_0) = y_0,
+\end{equation}
+где $x_0$ и $y_0$ - некоторые числа, называется \textbf{задачей Коши}
+для уравнения \eqref{eq:linear-first-order}.
+
+Аналогичная запись:
+\begin{equation}\label{eq:cauchy-problem}
+    \begin{cases}
+        y' + p(x)y = 0, \\
+        y(x_0) = y_0.
+    \end{cases}
+\end{equation}
+То есть задача Коши заключается в поиске одной из множества интегральных кривых уравнения \eqref{eq:linear-first-order},
+проходящей через точку $(x_0, y_0)$.
+
+\subsection{Решение задачи Коши}
+Решение задачи Коши \eqref{eq:cauchy-problem} в таком случае будет иметь вид:
+\begin{equation}\label{eq:cauchy-solution}
+    y(x) = y_0 e^{\int_{x_0}^{x} p(t) dt}.
+\end{equation}
+Убедиться в этом можно, подставив \eqref{eq:cauchy-solution}
+в \eqref{eq:linear-first-order} и проверив выполнение
+начального условия \eqref{eq:initial-condition}.
+
+Данное уравнение будет решением \eqref{eq:linear-first-order}
+так как решение \eqref{eq:linear-first-order} в общем виде имеет вид:
+\begin{equation}\label{eq:general-solution}
+    y(x) = Ce^{\int p(x) dx},
+\end{equation}
+где $C$ - произвольная константа. Подставляя $y_0$ вместо $C$ получаем
+равенство.
+
+Для проверки условия \eqref{eq:initial-condition} подставляем $x = x_0$ в \eqref{eq:cauchy-solution}:
+\begin{equation*}
+    y(x_0) = y_0 e^{\int_{x_0}^{x_0} p(t) dt} = y_0 e^0 = y_0.
+\end{equation*}
+Получаем выполнение начального условия. Тем самым, решение задачи Коши
+найдено.
+
+\subsection{Особые случаи задачи Коши}
+1. Рассмотрим случай когда $y(x_0) = 0$. То есть второе условие задачи Коши
+является однородным уравнением. В таком случае решение задачи Коши
+будет иметь вид:
+\begin{equation*}
+    y(x) = 0 \cdot e^{\int_{x_0}^{x} p(t) dt} = 0.
+\end{equation*}
+Таким образом, $y(x) = 0$ является решением задачи Коши
+в случае однородного начального условия.
+
+2. Рассмторим случай когда в точке $x_0$ функция $p(x)$ не определена.
+В таком случае обычная постановка решения задачи Коши не имеет смысла,
+так как через точку $x_0$ не может проходить интегральная кривая
+уравнения \eqref{eq:linear-first-order}. Однако, если $p(x)$ имеет
+устранимый разрыв в точке $x_0$, то решение
+задачи Коши может быть продолжено в точку $x_0$. То есть задача может быть
+переформулирована так: Найти решения вида $y = y(x)$ (или $x = x(y)$), обладающее свойством:
+\begin{equation*}
+    \lim_{x \to x_0} y(x) = y_0 (\text{или } \lim_{y \to y_0} x(y) = x_0).
+\end{equation*}
+то есть решение, примыкающее к точке $(x_0, y_0)$.
+
+Например, рассмотрим
+уравнение:
+\begin{equation*}
+    y' + \frac{1}{x}y = 0,
+\end{equation*}
+и задачу Коши с условием $y(0) = y_0$. В данном случае функция
+$p(x) = \frac{1}{x}$ не определена в точке $x_0 = 0$. Однако,
+решение задачи Коши может быть продолжено в точку $x_0 = 0$,
+если $y_0 = 0$. В этом случае решение задачи Коши будет иметь вид:
+\begin{equation*}
+    y(x) = 0 \cdot e^{\int_{0}^{x} \frac{1}{t} dt} = 0.
+\end{equation*}
+
+\end{document}
