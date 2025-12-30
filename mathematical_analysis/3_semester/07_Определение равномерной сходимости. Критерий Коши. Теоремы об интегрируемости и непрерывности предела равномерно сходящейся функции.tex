@@ -1,0 +1,216 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage[a4paper, left=1.5cm, right=1.5cm, top=1.5cm, bottom=1.5cm]{geometry}\setlength{\parindent}{0pt}
+
+\title{ Билет 7. Определение равномерной сходимости. Критерий Коши. Теоремы об интегрируемости и
+непрерывности предела равномерно сходящейся функции.}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\subsection*{Определение равномерной сходимости}
+
+Рассмотрим $F(x, y)$, где $y \in Y \subset \mathbb{R}^1$, и при каждом фиксированном $\bar{y}$ определен интеграл $\int_{\alpha(y)}^{\beta(y)} F(x, y) \, dx$.
+
+Теперь рассмотрим общий случай. Пусть у нас есть функция $F(x, y)$, где $(x, y) \in X \times Y$.
+
+Для каждого фиксированного $x \in X$ $\lim_{y \to y_0} F(x, y)$ предел существует и конечен, который мы обозначим как $\varphi(x)$. То есть,
+\[
+\forall x \in X : \quad \lim_{y \to y_0} F(x, y) = \varphi(x).
+\]
+Это означает, что функция $F(x, y)$, рассматриваемая как функция переменной $y$ при фиксированном $x$, имеет предел $\varphi(x)$ при $y \to y_0$.
+
+Тогда говорят, что на множестве $X$ функция $\varphi(x)$ является \textit{предельной функцией} для $F(x, y)$ при $y \to y_0$.
+
+Записывают это так:
+\[
+F(x, y) \xrightarrow[y \to y_0]{} \varphi(x) \quad \text{(поточечно на } X \text{ сходится)}.
+\]
+
+\textbf{Введем понятие равномерной сходимости.}
+
+Говорят, что $F(x, y)$ стремится к $\varphi(x)$ \textit{равномерно по} $x \in X$ при $y \to y_0$, если:
+
+\[
+\boxed{
+\forall \varepsilon > 0 \quad \exists \delta > 0 : \forall y \in Y, \; 0 < |y - y_0| < \delta, \quad \forall x \in X \quad \text{выполняется} \quad |F(x, y) - \varphi(x)| < \varepsilon.
+}
+\]
+
+Это означает, что $\delta$ зависит только от $\varepsilon$, но \textbf{не зависит} от $x$. Это ключевое отличие от поточечной сходимости.
+
+Запись: \quad $F(x, y) \mathop{\rightrightarrows}\limits^{ x \in X}_{\,y \to y_0\,} \varphi(x)$.
+
+
+\subsection*{Пример (на поточечную, но не равномерную сходимость)}
+
+Рассмотрим $F(x, y) = xy$, где $x \in \mathbb{R}^1, y \in \mathbb{R}^1$, и $y_0 = 0$.
+
+Тогда $\lim_{y \to 0} F(x, y) = \varphi(x) \equiv 0$.
+
+Покажем, что сходимость \textbf{не является равномерной} на $\mathbb{R}$.
+
+Для этого возьмем $\varepsilon = 1$. Тогда для любого $\delta > 0$ можно выбрать $y = \frac{\delta}{2}$ и $x = \frac{2}{\delta}$. Тогда:
+\[
+|F(x, y) - \varphi(x)| = \left| \frac{2}{\delta} \cdot \frac{\delta}{2} \right| = 1 = \varepsilon.
+\]
+Следовательно, $\exists \varepsilon > 0$ такое, что $\forall \delta > 0$ найдутся $x, y$ с $0 < |y - y_0| < \delta$, но $|F(x, y) - \varphi(x)| \geq \varepsilon$. Значит, сходимость не равномерна.
+
+\textbf{Однако}, если ограничить $x$: например, рассмотреть $|x| \leq 1$, то сходимость будет равномерной. Действительно, для $\varepsilon > 0$ выберем $\delta = \varepsilon$. Тогда при $0 < |y| < \delta$ и $|x| \leq 1$ имеем:
+\[
+|F(x, y) - \varphi(x)| = |xy| \leq |x||y| < 1 \cdot \varepsilon = \varepsilon.
+\]
+
+\subsection*{Критерий Коши для равномерной сходимости}
+
+\textbf{Условие Коши}: Для того чтобы $F(x, y) \xrightarrow[y \to y_0]{} \varphi(x)$ равномерно по $x \in X$, необходимо и достаточно, чтобы
+
+\[
+\boxed{\forall \varepsilon > 0 \quad \exists \delta > 0 : \forall y', y'' \in Y, \; 0 < |y' - y_0| < \delta, \; 0 < |y'' - y_0| < \delta, \quad \forall x \in X,}
+\]
+\[
+\boxed{|F(x, y') - F(x, y'')| < \varepsilon.}
+\]
+
+\textbf{Доказательство (необходимость)}:
+
+Предположим, что $F(x, y) \to \varphi(x)$ равномерно по $x \in X$ при $y \to y_0$.  
+По определению равномерной сходимости:
+\[
+\forall \varepsilon > 0\ \exists \delta > 0\ \forall y \in Y,\ 0 < |y - y_0| < \delta,\ \forall x \in X:\quad 
+|F(x, y) - \varphi(x)| < \frac{\varepsilon}{2}.
+\tag{1}
+\]
+
+Возьмём произвольные $y', y'' \in Y$, удовлетворяющие $0 < |y' - y_0| < \delta$ и $0 < |y'' - y_0| < \delta$, и фиксируем произвольное $x \in X$.  
+Тогда, применяя неравенство треугольника, получаем:
+\[
+\begin{aligned}
+|F(x, y') - F(x, y'')|
+&= \bigl| (F(x, y') - \varphi(x)) + (\varphi(x) - F(x, y'')) \bigr| \\
+&\le |F(x, y') - \varphi(x)| + |F(x, y'') - \varphi(x)| \\
+&< \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon.
+\end{aligned}
+\]
+Так как $x \in X$ произвольно, условие (К) выполнено.
+
+\textbf{Доказательство (достаточность)}:
+
+Пусть выполнено условие (К). Покажем, что существует функция $\varphi \colon X \to \mathbb{R}$, такая что $F(x, y) \to \varphi(x)$ равномерно по $x \in X$.
+
+\textit{Шаг 1: построение $\varphi(x)$.}  
+Зафиксируем произвольное $x \in X$. Условие (К), применённое к этому $x$, означает, что числовая функция $y \mapsto F(x, y)$ удовлетворяет критерию Коши при $y \to y_0$. Следовательно, существует конечный предел:
+\[
+\varphi(x) := \lim_{y \to y_0} F(x, y).
+\]
+Этим определена функция $\varphi \colon X \to \mathbb{R}$.
+
+\textit{Шаг 2: доказательство равномерной сходимости.}  
+Зафиксируем $\varepsilon > 0$. По условию (К) найдётся $\delta > 0$, такое что для всех $y', y'' \in Y$ с $0 < |y' - y_0| < \delta$, $0 < |y'' - y_0| < \delta$ и всех $x \in X$:
+\[
+|F(x, y') - F(x, y'')| < \frac{\varepsilon}{2}.
+\tag{2}
+\]
+
+Теперь зафиксируем произвольное $y \in Y$, удовлетворяющее $0 < |y - y_0| < \delta$, и произвольное $x \in X$. Поскольку $\varphi(x) = \lim_{y'' \to y_0} F(x, y'')$, существует последовательность $(y_n) \subset Y$, $y_n \ne y_0$, $y_n \to y_0$, такая что $F(x, y_n) \to \varphi(x)$. Выберем $n$ достаточно большим, чтобы $0 < |y_n - y_0| < \delta$. Тогда из (2) следует:
+\[
+|F(x, y) - F(x, y_n)| < \frac{\varepsilon}{2}.
+\]
+Переходя к пределу при $n \to \infty$, с учётом непрерывности модуля, получаем:
+\[
+|F(x, y) - \varphi(x)| = \lim_{n \to \infty} |F(x, y) - F(x, y_n)| \le \frac{\varepsilon}{2} < \varepsilon.
+\]
+
+Поскольку $x \in X$ и $y$ (с условием $0 < |y - y_0| < \delta$) выбирались произвольно, мы доказали, что:
+\[
+\forall \varepsilon > 0\ \exists \delta > 0\ \forall y \in Y,\ 0 < |y - y_0| < \delta,\ \forall x \in X:\quad |F(x, y) - \varphi(x)| < \varepsilon,
+\]
+то есть $F(x, y) \to \varphi(x)$ равномерно по $x \in X$.
+
+\subsection*{Теорема о непрерывности предела равномерно сходящейся функции}
+
+Пусть $F(x, y)$ определена на $[a, b] \times Y$, и $\forall y \in Y$ функция $F(x, y)$ непрерывна по $x$ на $[a, b]$.
+
+Если $\forall y \in Y$: $F(x, y) \mathop{\rightrightarrows}\limits^{x \in [a,b]}_{\,y \to y_0\,} \varphi(x)$ - непрерывна при по $x$ на $[a, b]$, то предельная функция тоже непрерывна на $[a, b]$ .
+
+
+\textbf{Доказательство}:
+
+Покажем, что $\varphi(x)$ непрерывна в произвольной точке $x_0 \in [a, b]$.
+
+$\forall \varepsilon > 0$ $\exists \delta > 0$ : $\forall x \in [a, b]$, $|x - x_0| < \delta$.
+Следовательно.
+\[
+|F(x, y) - \varphi(x)| < \frac{\varepsilon}{3}.
+\]
+
+Также, поскольку $F(x, y)$ непрерывна по $x$ для каждого фиксированного $y$, то для выбранного $y$ (например, зафиксируем $y$ с $0 < |y - y_0| < \delta_1$) $\exists \delta_2 > 0$ такое, что $\forall x \in [a, b]$ с $|x - x_0| < \delta_2$ выполняется:
+\[
+|F(x, y) - F(x_0, y)| < \frac{\varepsilon}{3}.
+\]
+
+Теперь для $x$ с $|x - x_0| < \delta_2$ оценим $|\varphi(x) - \varphi(x_0)|$:
+\[
+|\varphi(x) - \varphi(x_0)| \leq |\varphi(x) - F(x, y)| + |F(x, y) - F(x_0, y)| + |F(x_0, y) - \varphi(x_0)| < \frac{\varepsilon}{3} + \frac{\varepsilon}{3} + \frac{\varepsilon}{3} = \varepsilon.
+\]
+
+Таким образом, $\varphi(x)$ непрерывна в точке $x_0$. Поскольку $x_0$ — произвольная точка из $[a, b]$, то $\varphi(x)$ непрерывна на всем отрезке.
+
+\textbf{Замечание из вашего конспекта:} Если $\forall y \in Y$ функция $F(x, y)$ непрерывна по $x$, то предельная функция $\varphi(x)$ тоже может быть непрерывной, но это гарантировано только при равномерной сходимости.
+
+
+\subsection*{Теорема об интегрируемости предела равномерно сходящейся функции}
+
+Пусть $F(x, y)$ определена на $(x, y) \in [a, b] \times Y$, и $\forall y \in Y$ существует интеграл
+\[
+\int_a^b f(x, y) \, dx.
+\]
+
+Если $F(x, y) \mathop{\rightrightarrows}\limits^{x \in [a,b]}_{\,y \to y_0\,} \varphi(x)$ , то существует интеграл
+\[
+\int_a^b \varphi(x) \, dx,
+\]
+
+\textbf{Доказательство}:
+
+1. \textbf{Интегрируемость $\varphi(x)$}.
+
+По определению равномерной сходимости: $\forall \varepsilon > 0$ $\exists \delta > 0$ такое, что $\forall y \in Y$ с $0 < |y - y_0| < \delta$ и $\forall x \in [a, b]$ выполняется:
+\[
+|F(x, y) - \varphi(x)| < \frac{\varepsilon}{4(b-a)}.
+\]
+
+Выберем конкретное $y$ с $0 < |y - y_0| < \delta$. Поскольку $F(x, y)$ интегрируема, то для данного $\varepsilon > 0$ $\exists$ разбиение $\tau$ отрезка $[a, b]$ на части $[x_i, x_{i+1}]$ такое, что сумма колебаний $\sum_{i=0}^{n-1} \omega_i \Delta x_i < \frac{\varepsilon}{2}$, где $\omega_i = M_i - m_i$ — колебание $F(x, y)$ на $[x_i, x_{i+1}]$, а $\Delta x_i = x_{i+1} - x_i$.
+
+Рассмотрим колебание $\varphi(x)$ на том же отрезке $[x_i, x_{i+1}]$. Пусть $M_i^\varphi = \sup_{x \in [x_i, x_{i+1}]} \varphi(x)$, $m_i^\varphi = \inf_{x \in [x_i, x_{i+1}]} \varphi(x)$.
+
+Тогда для любого $x \in [x_i, x_{i+1}]$:
+\[
+F(x, y) - \frac{\varepsilon}{4(b-a)} < \varphi(x) < F(x, y) + \frac{\varepsilon}{4(b-a)}.
+\]
+
+Отсюда следует, что
+\[
+M_i^\varphi \leq M_i + \frac{\varepsilon}{4(b-a)}, \quad m_i^\varphi \geq m_i - \frac{\varepsilon}{4(b-a)}.
+\]
+
+Таким образом, колебание $\varphi(x)$ на $[x_i, x_{i+1}]$:
+\[
+\omega_i^\varphi = M_i^\varphi - m_i^\varphi \leq \left(M_i + \frac{\varepsilon}{4(b-a)}\right) - \left(m_i - \frac{\varepsilon}{4(b-a)}\right) = \omega_i + \frac{\varepsilon}{2(b-a)}.
+\]
+
+Теперь оценим сумму колебаний $\varphi(x)$ по всему разбиению:
+\[
+\sum_{i=0}^{n-1} \omega_i^\varphi \Delta x_i \leq \sum_{i=0}^{n-1} \left( \omega_i + \frac{\varepsilon}{2(b-a)} \right) \Delta x_i = \sum_{i=0}^{n-1} \omega_i \Delta x_i + \frac{\varepsilon}{2(b-a)} \sum_{i=0}^{n-1} \Delta x_i < \frac{\varepsilon}{2} + \frac{\varepsilon}{2(b-a)} \cdot (b - a) = \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon.
+\]
+
+Следовательно, $\varphi(x)$ интегрируема по Риману.
+
+\end{document}
