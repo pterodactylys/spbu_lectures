@@ -1,0 +1,171 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage[a4paper, left=1.5cm, right=1.5cm, top=1.5cm, bottom=1.5cm]{geometry}\setlength{\parindent}{0pt}
+
+\title{ Билет 3. Зависимые и независимые функции.}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+Рассмотрим систему уравнений:
+\begin{equation}
+(1) \quad
+\left\{
+\begin{aligned}
+y_1 &= f_1(x_1, \dots, x_n) \\
+&\vdots \\
+y_m &= f_m(x_1, \dots, x_n)
+\end{aligned}
+\right.
+\quad
+\text{где } x \in G \subset \mathbb{R}^n, \text{ открытое множество}.
+\end{equation}
+
+Предполагаем, что все функции $f_i$ непрерывны и имеют непрерывные частные производные 1-го порядка на $G$.
+
+Зафиксируем индекс $j \in \{1, \dots, m\}$.
+
+Будем говорить, что на множестве $G$ функция $y_j$ зависит от остальных функций этой системы, если $\exists$ область $Q \subset \mathbb{R}^{m-1}$ и функция $\psi$, заданная на этой области, такая что:
+\begin{enumerate}
+    \item $\forall x \in G: \left(f_1(x), \dots, f_{j-1}(x), f_{j+1}(x), \dots, f_m(x)\right) \in Q$
+    \item $\forall x \in G: f_j(x) = \psi\left(f_1(x), \dots, f_{j-1}(x), f_{j+1}(x), \dots, f_m(x)\right)$
+\end{enumerate}
+
+\subsection*{(1) Зависимая система функций}
+
+Система функций называется \textbf{зависимой}, если хотя бы одна из функций системы зависит от остальных. В противном случае система называется \textbf{независимой}.
+
+\subsubsection*{* Пример:}
+
+\begin{enumerate}
+    \item
+    \[
+    \left\{
+    \begin{aligned}
+    y_1 &= x_1^2 \\
+    y_2 &= x_1^2 + x_2^2 + x_3^2 \\
+    y_3 &= x_2^2 + x_3^2
+    \end{aligned}
+    \right.
+    \]
+    Тогда $y_1 = (y_2 - y_3)^2 = \psi(y_2, y_3)$. Следовательно, первая функция зависит от остальных.
+
+    \item
+    \[
+    \left\{
+    \begin{aligned}
+    y_1 &= x_1 \\
+    y_2 &= x_1^2 + x_2^2 + x_3^2 \\
+    y_3 &= x_2^2 + x_3^2
+    \end{aligned}
+    \right.
+    \]
+    Рассмотрим точку $\bar{x} = (1, 1, 0)$. Тогда $y_1=1$, $y_2=2$, $y_3=1$. Если рассмотреть другую точку $\bar{x} = (-1, 1, 0)$, то получим $y_1=-1$, $y_2=2$, $y_3=1$. Таким образом, при одинаковых значениях $y_2$ и $y_3$ значение $y_1$ может быть разным. Следовательно, $y_1$ \textbf{не зависит} от остальных функций (по определению).
+\end{enumerate}
+
+\section*{Условия зависимости и независимости функций}
+
+Рассмотрим матрицу Якоби:
+\[
+\frac{\partial y}{\partial x} =
+\begin{pmatrix}
+\frac{\partial y_1}{\partial x_1} & \cdots & \frac{\partial y_1}{\partial x_n} \\
+\vdots & \ddots & \vdots \\
+\frac{\partial y_{m-1}}{\partial x_1} & \cdots & \frac{\partial y_{m-1}}{\partial x_n} \\
+\frac{\partial y_m}{\partial x_i} & \cdots & \frac{\partial y_m}{\partial x_i}
+\end{pmatrix}_{m \times n}
+\quad
+\]
+
+\subsection*{Случай 1. $n \geq m$}
+
+\textbf{Теорема:} Если система (1) зависима на $G$, то любой минор порядка $m$ матрицы Якоби тождественно равен 0 на множестве $G$.
+
+\textbf{Доказательство:} По определению зависимости, $\exists$ функция $\psi$ такая, что $y_m = \psi(y_1, \dots, y_{m-1})$ на области $Q$. При этом все функции $y_i$ и $\psi$ непрерывно дифференцируемы.
+
+Тогда вместо $y_m$ подставляем $\psi(y_1, \dots, y_{m-1})$ и вычисляем частную производную по $x_i$:
+\[
+\frac{\partial y_m}{\partial x_i} = \frac{\partial \psi}{\partial y_1} \cdot \frac{\partial y_1}{\partial x_i} + \dots + \frac{\partial \psi}{\partial y_{m-1}} \cdot \frac{\partial y_{m-1}}{\partial x_i}, \quad i = 1, \dots, n
+\]
+
+Это означает, что последняя строка матрицы Якоби линейно выражается через предыдущие строки, т.е. строки линейно зависимы. Следовательно, любой минор порядка $m$ (если $n \geq m$) равен 0. (Необходимое условие зависимости).
+
+\textit{Примечание:} Если хотя бы один минор не равен нулю, то система зависима. Но если все миноры равны нулю, это не гарантирует зависимости (может быть любой результат).
+
+\section*{Ранг матрицы Якоби на $G$}
+
+Ранг матрицы Якоби на $G$ — это наибольший порядок миноров этой матрицы, не обращающихся в тождественный 0 на множестве $G$.
+
+\subsection*{2) $n, m$ — любые}
+
+Обозначим $\mu = \operatorname{rank}$.
+
+\begin{enumerate}
+    \item $\mu = 0$, когда все элементы матрицы Якоби $\equiv 0$, т.е. все $f_i = \text{const}$.
+    \item $\mu \geq 1 \Rightarrow \exists$ хотя бы один минор порядка $\mu$, который $\not\equiv 0$ на $G$, а все миноры порядка $> \mu$ $\equiv 0$ на $G$.
+\end{enumerate}
+
+\subsection*{Теорема}
+
+Если $\operatorname{rank} = \mu \geq 1$, то существует точка $\bar{x} \in G$, в которой $\exists$ минор порядка $\mu$, отличный от нуля. (Т.е. если ранг равен $\mu$, то есть хотя бы одна точка, где он достигается).
+
+Тогда в окрестности этой точки $\bar{x}$ можно выделить $\mu$ функций, которые линейно независимы, а остальные от них зависят. Можно считать, что эти $\mu$ функций входят в минор порядка $\mu$, не обращающийся в нуль в окрестности $\bar{x}$.
+
+\textbf{Примечание:} Теорема без доказательства!
+
+\subsection*{Пример применения:}
+
+Рассмотрим систему:
+\[
+(1) \quad
+\left\{
+\begin{aligned}
+y_1 &= x_1 + x_2 + x_3 + x_4 \\
+y_2 &= x_1^2 + x_2^2 + x_3^2 + x_4^2 \\
+y_3 &= (x_1x_2 + x_1x_3 + x_1x_4) + x_2x_3 + x_2x_4 + x_3x_4
+\end{aligned}
+\right.
+\]
+
+Пусть $G = \mathbb{R}^4$. Вычислим матрицу Якоби:
+\[
+\frac{\partial \vec{y}}{\partial \vec{x}} =
+\begin{pmatrix}
+1 & 1 & 1 & 1 \\
+2x_1 & 2x_2 & 2x_3 & 2x_4 \\
+x_2+x_3+x_4 & x_1+x_3+x_4 & x_1+x_2+x_4 & x_1+x_2+x_3
+\end{pmatrix}
+\]
+
+Рассмотрим минор 3-го порядка, составленный из первых трех столбцов:
+\[
+\det
+\begin{pmatrix}
+1 & 1 & 1 \\
+2x_1 & 2x_2 & 2x_3 \\
+x_2+x_3+x_4 & x_1+x_3+x_4 & x_1+x_2+x_4
+\end{pmatrix}
+\]
+
+Если, например, $x_2 \neq x_1$, то этот минор может быть не равен нулю. Проверим для конкретной точки.
+
+Минор 3-го порядка $\not\equiv 0$.
+
+$\Rightarrow \operatorname{rank} = 2 \Rightarrow \mu = 2$.
+
+\begin{enumerate}
+    \item[2)] Рассмотрим точку $\bar{x} = \begin{pmatrix} 1 \\ 0 \\ 0 \\ 0 \end{pmatrix}$. Т.е. существует точка $\bar{x}$, в которой минор 2-го порядка не равен нулю, а минор 3-го порядка равен нулю.
+
+    Тогда $y_3 = \psi(y_1, y_2)$.
+
+    Например, можно проверить, что $y_3 = \frac{1}{2}(y_1^2 - y_2)$.
+\end{enumerate}
+
+\end{document}
