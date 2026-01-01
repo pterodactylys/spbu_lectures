@@ -14,23 +14,22 @@
 
 \maketitle
 
+
 \section*{Переход к пределу под знаком интеграла}
 
-Пусть $f(x,y)$ определена на $[a,b] \times Y$, где $y_0$ — предельная точка множества $Y$ (конечная/бесконечная, правая/левая/двусторонняя).
+Пусть $f(x,y)$ определена на $[a,b] \times Y$, где $y_0$ — предельная точка множества $Y$ (конечная/бесконечная, принадлежит/непринадлежит).
 
-Предположим, что $\forall y \in Y$ существует интеграл $\int_a^b f(x,y) \, dx$.
+Предположим, что $\forall y \in Y$ существует интеграл $\int_a^b f(x,\bar{y}) \, dx$.
 
-Также пусть при $x \in [a,b]$ выполнено:
-\[
-f(x,y) \xrightarrow[y \to y_0]{} \varphi(x)
-\]
+И пусть \quad $f(x, y) \mathop{\rightrightarrows}\limits^{ x \in [a, b]}_{\,y \to y_0\,} \varphi(x)$.
+
 
 Определим функцию:
 \[
 G(y) = \int_a^b f(x,y) \, dx
 \]
 
-\textbf{Требуется доказать:}
+\textbf{То:}
 \[
 \lim_{y \to y_0} G(y) = \int_a^b \varphi(x) \, dx
 \]
@@ -41,9 +40,11 @@ G(y) = \int_a^b f(x,y) \, dx
 
 \subsection*{Доказательство}
 
-Т.к. $\exists \int_a^b f(x,y) \, dx$ (по условию), то $\int_a^b \varphi(x) \, dx$ существует.
+Т.к. $\exists \int_a^b f(x,\bar{y}) \, dx$ (по условию), и \quad $f(x, y) \mathop{\rightrightarrows}\limits^{x \in [a, b]}_{\,y \to y_0\,} \varphi(x)$,  
+то по критерию Римана следует, что $\exists \int_a^b \varphi(x) \, dx$.
 
-\textbf{Определение предела:} $\lim_{y \to y_0} G(y) = \int_a^b \varphi(x) \, dx$ означает:
+\textbf{Определение предела:} для случая пусть $y_0$ - конечная, то
+$\lim_{y \to y_0} G(y) = \int_a^b \varphi(x) \, dx$ означает:
 
 $\forall \varepsilon > 0 \quad \exists \delta > 0 : \forall y \in Y \text{ таких, что } 0 < |y - y_0| < \delta$,
 
@@ -90,45 +91,44 @@ G(y) = \int_a^b f(x,y) \, dx
 
 Если функция непрерывна по двум переменным, то она непрерывна как по $x$, так и по $y$, причём для каждого фиксированного $y$ она интегрируема по $x$.
 
-Нам нужно показать, что $\forall y_0 \in [c,d]$:
+Докажем непрерывность. Нам нужно показать, что $\forall y_0 \in [c,d]$ непрерывность:
 \[
-\lim_{y \to y_0} G(y) = G(y_0) = \int_a^b f(x,y_0) \, dx
+\exists \lim_{y \to y_0} G(y) = G(y_0) = \int_a^b f(x,y_0) \, dx
 \]
 
-Это верно, но чтобы это доказать, нам нужно показать, что:
-\[
-\forall x \in [a,b] \quad f(x,y) \xrightarrow[y \to y_0]{} f(x,y_0)
-\]
+По предыдущей теореме это верно, но чтобы ей воспользоваться нужно показать, что:
+\quad $f(x, y) \mathop{\rightrightarrows}\limits^{ x \in [a, b]}_{\,y \to y_0\,} \varphi(x)$.
 
-Так как $[a,b] \times [c,d]$ — замкнутое множество, и $f$ непрерывна на нём, то по теореме Кантора (о равномерной непрерывности на компакте):
+
+Так как $[a,b] \times [c,d]$ — замкнутое непрерывное множество, и $f$ непрерывна на нём, то по теореме Кантора (о равномерной непрерывности на компакте):
 
 $\forall \varepsilon > 0 \quad \exists \delta > 0 : \forall x', x'' \in [a,b], \forall y', y'' \in [c,d]$, таких что $|x' - x''| < \delta$ и $|y' - y''| < \delta$, выполняется:
 \[
 |f(x',y') - f(x'',y'')| < \varepsilon
 \]
 
-В частности, если положить $x' = x'' = x$, то получим:
+В частном случае, если положить $x' = x''$, то получим:
 
 $\forall \varepsilon > 0 \quad \exists \delta > 0 : \forall x \in [a,b], \forall y', y'' \in [c,d]$ таких, что $|y' - y''| < \delta$, выполняется:
 \[
 |f(x,y') - f(x,y'')| < \varepsilon
 \]
 
-В частном случае, если $y' = y_0$, то:
+В частном частном случае, если $y' = y_0$, то:
 
 $\forall \varepsilon > 0 \quad \exists \delta > 0 : \forall x \in [a,b], \forall y'' \in [c,d]$ таких, что $|y_0 - y''| < \delta$, выполняется:
 \[
 |f(x,y_0) - f(x,y'')| < \varepsilon
 \]
 
-Или, что то же самое (меняя обозначения):
+В частном частном частном случае:
 
 $\forall \varepsilon > 0 \quad \exists \delta > 0 : \forall x \in [a,b], \forall y \in [c,d]$ таких, что $|y_0 - y| < \delta$, выполняется:
 \[
 |f(x,y_0) - f(x,y)| < \varepsilon
 \]
 
-То есть, $f(x,y) \xrightarrow[y \to y_0]{} f(x,y_0)$ равномерно по $x \in [a,b]$.
+То есть, \quad $f(x, y) \mathop{\rightrightarrows}\limits^{ x \in [a, b]}_{\,y \to y_0\,} \varphi(x)$.
 
 Тогда, как показано выше, можно перейти к пределу под знаком интеграла:
 
