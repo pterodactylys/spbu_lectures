@@ -1,0 +1,141 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage[a4paper, left=1.5cm, right=1.5cm, top=1.5cm, bottom=1.5cm]{geometry}\setlength{\parindent}{0pt}
+
+\title{ Билет 8. Переход к пределу под знаком интеграла. Условия непрерывности интеграла, зависящего от параметра.}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{Переход к пределу под знаком интеграла}
+
+Пусть $f(x,y)$ определена на $[a,b] \times Y$, где $y_0$ — предельная точка множества $Y$ (конечная/бесконечная, правая/левая/двусторонняя).
+
+Предположим, что $\forall y \in Y$ существует интеграл $\int_a^b f(x,y) \, dx$.
+
+Также пусть при $x \in [a,b]$ выполнено:
+\[
+f(x,y) \xrightarrow[y \to y_0]{} \varphi(x)
+\]
+
+Определим функцию:
+\[
+G(y) = \int_a^b f(x,y) \, dx
+\]
+
+\textbf{Требуется доказать:}
+\[
+\lim_{y \to y_0} G(y) = \int_a^b \varphi(x) \, dx
+\]
+или, что то же самое:
+\[
+\lim_{y \to y_0} \int_a^b f(x,y) \, dx = \int_a^b \lim_{y \to y_0} f(x,y) \, dx
+\]
+
+\subsection*{Доказательство}
+
+Т.к. $\exists \int_a^b f(x,y) \, dx$ (по условию), то $\int_a^b \varphi(x) \, dx$ существует.
+
+\textbf{Определение предела:} $\lim_{y \to y_0} G(y) = \int_a^b \varphi(x) \, dx$ означает:
+
+$\forall \varepsilon > 0 \quad \exists \delta > 0 : \forall y \in Y \text{ таких, что } 0 < |y - y_0| < \delta$,
+
+выполняется:
+\[
+\left| \int_a^b f(x,y) \, dx - \int_a^b \varphi(x) \, dx \right| < \varepsilon
+\]
+
+Используем неравенство:
+\[
+\left| \int_a^b f(x,y) \, dx - \int_a^b \varphi(x) \, dx \right| \leq \int_a^b |f(x,y) - \varphi(x)| \, dx
+\]
+
+Выберем $\frac{\varepsilon}{b-a} > 0$. Тогда $\exists \delta > 0 : \forall y \in Y$, при $0 < |y - y_0| < \delta$ и $\forall x \in [a,b]$ выполняется:
+\[
+|f(x,y) - \varphi(x)| < \frac{\varepsilon}{b-a}
+\]
+
+Умножаем на длину отрезка $(b-a)$:
+\[
+\int_a^b |f(x,y) - \varphi(x)| \, dx < \int_a^b \frac{\varepsilon}{b-a} \, dx = \varepsilon
+\]
+
+Следовательно,
+\[
+\left| \int_a^b f(x,y) \, dx - \int_a^b \varphi(x) \, dx \right| < \varepsilon
+\]
+
+Что и требовалось доказать.
+
+\section*{Теорема о непрерывности интеграла по параметру}
+
+Пусть $f(x,y)$ определена на $[a,b] \times [c,d]$.
+
+Пусть $f(x,y)$ непрерывна на этом декартовом произведении (по двум переменным).
+
+Тогда функция
+\[
+G(y) = \int_a^b f(x,y) \, dx
+\]
+является непрерывной на промежутке $[c,d]$.
+
+\subsection*{Доказательство}
+
+Если функция непрерывна по двум переменным, то она непрерывна как по $x$, так и по $y$, причём для каждого фиксированного $y$ она интегрируема по $x$.
+
+Нам нужно показать, что $\forall y_0 \in [c,d]$:
+\[
+\lim_{y \to y_0} G(y) = G(y_0) = \int_a^b f(x,y_0) \, dx
+\]
+
+Это верно, но чтобы это доказать, нам нужно показать, что:
+\[
+\forall x \in [a,b] \quad f(x,y) \xrightarrow[y \to y_0]{} f(x,y_0)
+\]
+
+Так как $[a,b] \times [c,d]$ — замкнутое множество, и $f$ непрерывна на нём, то по теореме Кантора (о равномерной непрерывности на компакте):
+
+$\forall \varepsilon > 0 \quad \exists \delta > 0 : \forall x', x'' \in [a,b], \forall y', y'' \in [c,d]$, таких что $|x' - x''| < \delta$ и $|y' - y''| < \delta$, выполняется:
+\[
+|f(x',y') - f(x'',y'')| < \varepsilon
+\]
+
+В частности, если положить $x' = x'' = x$, то получим:
+
+$\forall \varepsilon > 0 \quad \exists \delta > 0 : \forall x \in [a,b], \forall y', y'' \in [c,d]$ таких, что $|y' - y''| < \delta$, выполняется:
+\[
+|f(x,y') - f(x,y'')| < \varepsilon
+\]
+
+В частном случае, если $y' = y_0$, то:
+
+$\forall \varepsilon > 0 \quad \exists \delta > 0 : \forall x \in [a,b], \forall y'' \in [c,d]$ таких, что $|y_0 - y''| < \delta$, выполняется:
+\[
+|f(x,y_0) - f(x,y'')| < \varepsilon
+\]
+
+Или, что то же самое (меняя обозначения):
+
+$\forall \varepsilon > 0 \quad \exists \delta > 0 : \forall x \in [a,b], \forall y \in [c,d]$ таких, что $|y_0 - y| < \delta$, выполняется:
+\[
+|f(x,y_0) - f(x,y)| < \varepsilon
+\]
+
+То есть, $f(x,y) \xrightarrow[y \to y_0]{} f(x,y_0)$ равномерно по $x \in [a,b]$.
+
+Тогда, как показано выше, можно перейти к пределу под знаком интеграла:
+
+\[
+\lim_{y \to y_0} \int_a^b f(x,y) \, dx = \int_a^b \lim_{y \to y_0} f(x,y) \, dx = \int_a^b f(x,y_0) \, dx = G(y_0)
+\]
+
+Следовательно, $G(y)$ непрерывна в точке $y_0$. Так как $y_0$ — произвольная точка из $[c,d]$, то $G(y)$ непрерывна на всём отрезке $[c,d]$.
+
+\end{document}
