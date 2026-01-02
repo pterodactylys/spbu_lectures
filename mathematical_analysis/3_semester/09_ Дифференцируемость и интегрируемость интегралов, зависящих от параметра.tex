@@ -1,0 +1,181 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage[a4paper, left=1.5cm, right=1.5cm, top=1.5cm, bottom=1.5cm]{geometry}\setlength{\parindent}{0pt}
+
+\title{ Билет 9. Дифференцируемость и интегрируемость интегралов, зависящих от параметра.}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{Дифференцируемость интегралов, зависящих от параметра}
+
+Пусть $f(x,y)$ определена на $[a,b] \times [c,d]$.
+
+Пусть $\forall y \in [a,b] \quad \exists \int_a^b f(x,\bar{y})\,dx$
+
+Пусть $\exists f_y'(x,y)$ — непрерывна как функция двух переменных.
+
+Тогда:
+\[
+G(y) = \int_a^b f(x,y)\,dx
+\]
+
+дифференцируема на $[c,d]$ и
+
+\[
+\exists G'(y) = \int_a^b f_y'(x,y)\,dx
+\]
+
+\subsection*{Доказательство:}
+
+Фиксируем $\forall y_0 \in [c,d]$. $\exists G'(y_0)$.
+
+По определению производной:
+\[
+\frac{G(y_0 + h) - G(y_0)}{h}, \quad h \ne 0, \quad y_0 + h \in [c,d]
+\]
+
+Так как $\exists f_y'(x,y)$, то по формуле конечных приращений Лагранжа:
+
+\[
+\frac{G(y_0 + h) - G(y_0)}{h}
+= \int_a^b \frac{f(x,y_0 + h) - f(x,y_0)}{h}\,dx 
+= \int_a^b f_y'\bigl(x,\, y_0 + \theta h\bigr)\,dx,
+\quad \text{где } 0 < \theta < 1
+\]
+(Замечание: $\theta$ может зависеть от $x$ и $h$, но мы не будем этого выписывать явно — достаточно того, что $0 < \theta < 1$.)
+
+Так как \quad $f_y'(x, y_0 + \theta h) \mathop{\rightrightarrows}\limits^{[a, b]}_{\,h \to 0\,} f_y'(x, y_0)$ (по непрерывности $f_y'$),  
+и так как $f_y'(x,y)$ непрерывна на $[a,b] \times [c,d]$, то она \textit{равномерно непрерывна}:
+
+\[
+\forall \varepsilon > 0\ \exists \delta > 0:\ 
+\forall y \in Y:\ |y - y_0| < \delta \quad \Rightarrow \quad \forall x \in [a,b]:\ 
+\bigl| f_y'(x, y) - f_y'(x, y_0) \bigr| < \varepsilon.
+\]
+
+А это условие того, что 
+\[
+f(x,y) \xRightarrow[y \to y_0]{[a,b]} f(x,y_0).
+\]
+
+Нам нужно показать, что 
+\[
+f_y'\bigl(x,\,y_0 + \theta h\bigr) \xRightarrow[y \to y_0]{[a,b]} f_y'(x, y_0),
+\]
+а это значит, что
+\[
+\forall\, \varepsilon > 0\ \exists\, \delta > 0:\ 
+\forall\, h \text : 0 < |h| < \delta,\ 
+\forall\, x \in [a,b]\colon\ 
+\bigl| f_y'(x, y_0 + \theta h) - f_y'(x, y_0) \bigr| < \varepsilon.
+\]
+
+Возьмём в качестве этого $\delta$ то $\delta$, которое гарантируется определением равномерной непрерывности $f_y'$ на $[a,b] \times [c,d]$.  
+Поскольку $|h| < \delta$ и $0 < \theta < 1$, то
+\[
+|y_0 + \theta h - y_0| = |\theta h| < |h| < \delta,
+\]
+а значит,
+\[
+f_y'\bigl(x,\,y_0 + \theta h\bigr) \xRightarrow[h \to 0]{[a,b]} f_y'(x, y_0).
+\]
+
+Следовательно, по теореме о предельном переходе под знаком интеграла (для равномерной сходимости на конечном отрезке),
+\[
+\lim_{h \to 0} \int_a^b f_y'\bigl(x,\, y_0 + \theta h\bigr)\,dx 
+= \int_a^b \lim_{h \to 0} f_y'\bigl(x,\, y_0 + \theta h\bigr)\,dx 
+= \int_a^b f_y'(x, y_0)\,dx,
+\]
+то есть
+\[
+G'(y_0) = \int_a^b f_y'(x, y_0)\,dx.
+\]
+
+Теорема доказана.
+
+\subsection*{Пример:}
+
+\[
+\int_1^2 \ln(x^2 + y^2)\,dx, \quad x \in [1,2], \quad y \in [0,1]
+\]
+
+(функция непрерывна)
+
+\[
+f_y'(x,y) = \frac{2y}{x^2 + y^2}
+\]
+
+\[
+G'(y) = \int_1^2 \frac{2y}{x^2 + y^2}\,dx = \int_1^2 \frac{2\,d\left(\frac{x}{y}\right)}{\left(\frac{x}{y}\right)^2 + 1} =
+\]
+
+\[
+= 2 \arctan\left(\frac{x}{y}\right) \Big|_1^2 = 2 \arctan\frac{2}{y} - 2 \arctan\frac{1}{y}
+\]
+
+\section*{Интегрируемость интегралов, зависящих от параметра}
+
+\subsection*{Теорема об интегрировании интеграла по параметру}
+
+Пусть $f(x,y)$ определена на $[a,b] \times [c,d]$ и непрерывна как функция двух переменных.
+
+Положим:
+\[
+G(y) = \int_a^b f(x,y)\,dx
+\]
+
+Тогда:
+\[
+\exists \int_c^d G(y)\,dy = \int_c^d \int_a^b f(x,y)\,dx\,dy = \int_a^b \int_c^d f(x,y)\,dy\,dx
+\]
+
+\subsection*{Доказательство:}
+
+Так как $f(x,y)$ непрерывна как фнкция двух переменных, то она интегрируема по любому прямоугольнику.
+
+Так как $f$ непрерывна по параметру $y$, то $G(y)$ непрерывна на $[c,d]$ (по предыдущей теореме, если бы мы знали дифференцируемость, но здесь достаточно непрерывности).
+
+Так как $G(y)$ непрерывна, то $\exists \int_c^d G(y)\,dy$.
+
+Аналогично, $\exists \int_a^b \int_c^d f(x,y)\,dy\,dx$.
+
+Нужно доказать равенство:
+
+Рассмотрим общую задачу:
+\[
+F_1(z) = \int_c^z \int_a^b f(x,y)\,dx\,dy, \quad F_2(z) = \int_a^b \int_c^z f(x,y)\,dy\,dx
+\]
+
+Покажем, что $F_1'(z) = F_2'(z)$.
+
+По теореме о дифференцировании интеграла по параметру:
+
+\[
+F_1'(z) = \int_a^b f(x,z)\,dx
+\]
+
+\[
+F_2'(z) = \int_a^b \frac{\partial}{\partial z} \left( \int_c^z f(x,y)\,dy \right) dx = \int_a^b f(x,z)\,dx
+\]
+
+Следовательно, $F_1'(z) = F_2'(z)$ для всех $z \in [c,d]$.
+
+Значит, $F_1(z) = F_2(z) + A$ для некоторой константы $A$.
+
+Но $F_1(c) = 0$, $F_2(c) = 0$, следовательно, $A = 0$.
+
+Таким образом, $F_1(z) = F_2(z)$ для всех $z \in [c,d]$.
+
+В частности, при $z = d$ получаем требуемое равенство.
+
+Теорема доказана.
+
+\end{document}
