@@ -1,0 +1,194 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\DeclareMathOperator{\rank}{rank}
+\usepackage{tikz}
+\usetikzlibrary{matrix,fit}
+\usepackage[a4paper, left=1.5cm, right=1.5cm, top=1.5cm, bottom=1.5cm]{geometry}\setlength{\parindent}{0pt}
+
+\title{Билет 5. Условный экстремум. Необходимые условия. Метод множителей Лагранжа.}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Постановка задачи}
+
+Пусть задана функция  
+\[
+    y = f(x_1, \dots, x_n, x_{n+1}, \dots, x_{n+m}), \qquad \vec{x} \in G \subset \mathbb{R}^{n+m},
+\]  
+уравнение связи:
+\[
+    \varphi_j(x_1, \dots, x_{n+m}) = 0, \quad j = \overline{1, m}.
+\]  
+
+\begin{itemize}
+    \item Рассмотрим $ y = f( ) $, рассмотрим уравнение связи.
+    \item Рассмотрим $ \bar{x} \in G $ — ge пусть точка, удовлетворяет условиям связи.
+    \item Точка $\bar{x}$ называется \textbf{точкой относительного (условного) максимума}, если  
+    \[
+        \exists\, \delta > 0:\quad f(x) \leq f(\bar{x}) \quad \text{при} \quad
+        \begin{cases}
+            0 < \rho(\bar{x}, x) < \delta, \\
+            \varphi_j(x) = 0, \quad j = \overline{1, m}.
+        \end{cases}
+    \]
+    \item Аналогично — условный минимум: $ f(x) > f(\bar{x}) $.
+\end{itemize}
+% тут пример 
+% 2 страница тетради
+
+\subsection*{Необходимые условия экстремума}
+
+Рассмотрим $ \bar{x} \in G \subset \mathbb{R}^{n+m} $, и предположим, что $ \bar{x} $ — точка условного экстремума.
+
+Пусть $ f $ — непрерывна и имеет непрерывные частные производные 1-го порядка.
+
+Функции $ \varphi_j(x) $ — непрерывны и имеют непрерывные частные производные 1-го порядка.
+
+Т.к. существуют частные производные 1-го порядка: $ \dfrac{\partial f}{\partial x_i} $ и $ \dfrac{\partial \varphi_j}{\partial x_i} $.
+
+Рассмотрим матрицу Якоби:
+
+
+\[
+\frac{\partial \varphi}{\partial x} =
+    \begin{tikzpicture}[baseline=(M.center)]
+        \matrix (M) [
+            matrix of math nodes,
+            left delimiter=(,
+            right delimiter=),
+            column sep=1ex,
+            row sep=0.5ex
+        ] {
+            \dfrac{\partial \varphi_1}{\partial x_1} & \cdots & \dfrac{\partial \varphi_1}{\partial x_n} & \dfrac{\partial \varphi_1}{\partial x_{n+1}} & \cdots & \dfrac{\partial \varphi_1}{\partial x_{n+m}} \\
+            \vdots & \ddots & \vdots & \vdots & \ddots & \vdots \\
+            \dfrac{\partial \varphi_m}{\partial x_1} & \cdots & \dfrac{\partial \varphi_m}{\partial x_n} & \dfrac{\partial \varphi_m}{\partial x_{n+1}} & \cdots & \dfrac{\partial \varphi_m}{\partial x_{n+m}} \\
+        };
+        \node[draw=red,thick,inner sep=2pt,fit=(M-1-4)(M-3-6)] {};
+    \end{tikzpicture}_{\,m \times (n+m)}
+\]
+
+Пусть в точке $\bar{x}$ хотя бы один из миноров порядка \( m \) отличен от нуля.
+
+И \( \varphi_j(\bar{x}) = 0 \), \( j = \overline{1, m} \).
+
+Для определенности это минор, соответствующий последним \( m \) столбцам (красным квадратом выделено).
+
+Тогда можем рассмотреть систему уравнений
+\[
+    \varphi_j(\bar{x}) = 0, \quad j = \overline{1, m}.
+\]
+
+Тогда можно применить теорему о существовании неявных функций.
+
+Обозначим \( \widetilde{x} = (x_1, \dots, x_n) \). Тогда
+\[
+    \begin{cases}
+        x_{n+1} = g_1(\widetilde{x}) \\
+        \vdots \\
+        x_{n+m} = g_m(\widetilde{x})
+    \end{cases}
+\]
+где функции \( g_1, \dots, g_m \) — непрерывны и имеют непрерывные частные производные по переменным \( x_1, \dots, x_n \). Предположения гарантируют, что найдётся параллелепипед с центром в \( \bar{x} \), где система (1) однозначно разрешима.
+
+Пусть \( \bar{x} \) - точка условного экстремума. Рассмотрим функцию 
+\[
+f(\widetilde{x},x_{n+1},\dots, x_{n+m}) = f(\widetilde{x},g_1(\widetilde{x}),\dots, g_m(\widetilde{x})).
+\]
+Имеем \( f(x_1, \dots, x_n, x_{n+1}, \dots, x_{n+m}) \) и уравнения связи \( \varphi_j(x_1, \dots, x_{n+m}) = 0, \quad j = \overline{1, m} \), определённые в \( \mathbb{R}^{n+m} \).
+
+Если \( \bar{x} \) - точка условного экстремума, то какие условия?
+Делаем предположение:
+
+Рассмотрим матрицу Якоби.
+
+
+ $\frac{\partial \varphi}{\partial \bar{x}} (\bar{x})$, хотя бы 1 из миноров порядка $m$ в точке $\bar{x}$ не нулевой.
+
+Значит можем разрешить относительно переменной, не входящей? в 0 минора.
+%уточнить слово
+Тогда можем построить окрестность $\bar{x}$*, что в ней уравнение связи однозначно разрешимо и:
+\[
+    \begin{cases}
+        x_{n+1} = g_1(\widetilde{x}) \\
+        \vdots \\
+        x_{n+m} = g_m(\widetilde{x})
+    \end{cases}
+    \tag{**}
+\]
+
+%Я тут
+
+
+Тогда $\widetilde{f}(\widetilde{x}) = f(\widetilde{x}, g_1(\widetilde{x}), \ldots, g_m(\widetilde{x}))$
+
+Для точек в окр. $\bar{x}$ (*) $f$ и $\widetilde{f}$ совп.
+
+Тогда можем применить известное условие
+
+Рассмотрим $ \widetilde{f}(\widetilde{x})$. В точке подозрительной на экстремум частные производные обратятся в ноль.
+
+$0 = d\bar{f} = \sum_{i=1}^{n} \frac{\partial \widetilde{f}}{\partial x_i} dx_i$
+(по свойствам инварианта формы 1го диф совпадает(форма диф ф 1го совпадает с) )
+$= \sum_{j=1}^{n+m} \frac{\partial f(\bar{x})}{\partial x_j} dx_j =$ (инвариант дифф. 1го порядка)
+
+Пусть $\bar{x} = (\overline{x}_1, x_{m+1}, \ldots, \overline{x}_{n+m})$
+
+Из равенства *** нужно следует, что ч.п. = 0
+
+Это есть зависимость! Поэтому не можем брать произвольные дифференциалы.
+
+
+%
+
+Обозначим:  
+\[
+    (x_1, \dots, x_n) = \vec{\bar{x}}.
+\]
+
+Тогда:
+
+\[
+    \begin{cases}
+        x_{n+1} = g_1(\vec{\bar{x}}) \\
+        \vdots \\
+        x_{n+m} = g_m(\vec{\bar{x}})
+    \end{cases}
+\]
+
+Предполагаем, что функции $ g_1, \dots, g_m $ — непрерывны и гладкие, и существует окрестность с центром в $ \vec{\bar{x}} $, где система однозначно разрешима относительно $ x_{n+1}, \dots, x_{n+m} $.
+
+Если $ \vec{\bar{x}} $ — точка условного экстремума, то другие предположения верны, и тогда:
+
+\[
+    f(x_1, \dots, x_n, x_{n+1}, \dots, x_{n+m}) = f\bigl( \vec{\bar{x}},\, g_1(\vec{\bar{x}}),\, \dots,\, g_m(\vec{\bar{x}}) \bigr).
+\]
+
+Рассмотрим функцию:
+
+\[
+    f(x_1, \dots, x_n, x_{n+1}, \dots, x_{n+m}) + \text{ур. связи } \varphi_j(x_1, \dots, x_n, x_{n+1}, \dots, x_{n+m}) = 0, \quad j = \overline{1, m}.
+\]
+
+Определена в $ G \subset \mathbb{R}^{n+m} $.
+
+Если $ \vec{\bar{x}} $ — точка условного экстремума, то какие условия?
+
+Делаем предположение:  
+А можно знать $ \dfrac{\partial f}{\partial \vec{x}}(\vec{\bar{x}}) $, хотя бы один из миноров порядка $ m $ в точке $ \vec{\bar{x}} $ не нулевой.
+
+Значит, можно разрешить систему относительно переменных, не обращающих в ноль минор.
+
+
+
+
+
+\end{document}
