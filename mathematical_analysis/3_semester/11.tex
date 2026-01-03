@@ -1,0 +1,123 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage[a4paper, left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Теорема}
+\newtheorem{lemma}[theorem]{Лемма}
+\newtheorem{corollary}[theorem]{Следствие}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Определение}
+\newtheorem{example}{Пример}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Замечание}
+
+\setlength{\parindent}{1.5em}
+
+\title{Билет 11. Переход к пределу в несобственных интегралах первого рода, зависящих от параметра. Непрерывность интеграла по параметру.}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{Постановка задачи}
+
+Рассматриваем функцию $f(x, y)$, заданную на декартовом произведении $[a, +\infty) \times Y$, где $Y$ -- произвольное числовое множество. То есть $(x, y) \in [a, +\infty) \times Y$.
+
+Считаем, что $\forall \overline{y} \in Y$ существует несобственный интеграл первого рода
+\[
+\exists\int_{a}^{+\infty} f(x, \overline{y}) \, dx.
+\]
+
+\section*{Теорема о переходе к пределу под знаком интеграла}
+
+\begin{theorem}[О переходе к пределу под знаком интеграла]
+Пусть $y_0$ -- конечная или бесконечная предельная точка множества $Y$. Пусть выполнены следующие условия:
+\begin{enumerate}
+    \item Функция $f(x, y)$ равномерно на любом конечном отрезке $[a, A]$, $A > a$ при $y \to y_0$ сходится к предельной функции $\varphi(x)$, то есть
+    \[
+    f(x, y)\rightrightarrows^{[a, A]}_{y \to y_0} \varphi(x)
+    \]
+    \item Интеграл $\int_{a}^{+\infty} f(x, y)dx = G(y)$ сходится равномерно на $Y$;
+\end{enumerate}
+Тогда существует предел
+\[
+\lim_{y \to y_0} G(y) = \int_{a}^{+\infty} \varphi(x)dx.
+\]
+\end{theorem}
+
+\begin{proof}[Доказательство]
+\textbf{Существование.} Докажем, что интеграл $\int_{a}^{+\infty} \varphi(x)dx$ сходится.
+
+Если $f(x, y)$ (Условие 1 теоремы) на любом конечном промежутке сходится к $\varphi(x)$, а сама функция $f(x, y)$ интегрируема на любом таком отрезке, то по Теореме об интегрируемости предельной функции:
+
+\begin{theorem}Если $f(x, y)$ интегрируема $\forall \overline{y} \in [a, b]$, то и ее предельная функция интегрируема на этом отрезке.
+\end{theorem}
+мы можем утверждать, что $\varphi(x)$ интегрируема на любом отрезке $[a, A]$. \\
+\textbf{Сходимость.} Используем критерий Коши сходимости для несобственных интегралов. Нужно доказать, что
+\[
+\forall \varepsilon > 0 \quad \exists B : \forall A', A'' > B \quad 
+\left| \int_{A'}^{A''} \varphi(x)dx \right| < \varepsilon.
+\]
+Необходимо сформулировать правило как для заданного $\varepsilon$ можно найти $B$.
+
+Берем $\varepsilon > 0, \frac{\varepsilon}{2} > 0.$
+
+Рассматриваем $G(y) = \int_{a}^{+\infty} f(x, y)dx$ - несобственный интеграл 1 рода. По условию 1 теоремы, он равномерно сходится, значит для него выполнен критерий Коши:
+\[
+\frac{\varepsilon}{2} > 0 \quad \exists B : \forall A', A'' > B \quad 
+\left| \int_{A'}^{A''} f(x, y)dx \right| < \frac{\varepsilon}{2}.
+\]
+Берем это значение $B$ для критерия Коши сходимости интеграла от $\varphi(x)$. Чтобы доказать выполнение критерия, необходимо доказать, что:
+\[
+\left| \int_{A'}^{A''} \varphi(x)dx \right| < \varepsilon.
+\]
+Используем неравенство треугольника:
+\[
+\left| \int_{A'}^{A''} \varphi(x)dx \right| \leq
+\left| \int_{A'}^{A''} f(x, y) \, dx \right| +
+\left| \int_{A'}^{A''} \varphi(x) - f(x, y) \, dx \right|.
+\]
+Первое слагаемое меньше $\frac{\varepsilon}{2}$ по критерию Коши для $f(x, y)$.
+
+Для оценки второго слагаемого используем условие 1 из теоремы, $f(x, y)$ равномерно сходится к $\varphi(x)$ на любом отрезке $[a, A]$. Значит,
+\[
+\frac{\varepsilon}{2\left|A'' - A'\right|} > 0 \quad \exists \tilde{y} \in Y :
+\left| f(x, \tilde{y}) - \varphi(x) \right| < \frac{\varepsilon}{2\left|A'' - A'\right|}.
+\]
+Тогда $\left|\varphi(x) - f(x, y)\right| < \frac{\varepsilon}{2\left|A'' - A'\right|}$, значит и вся сумма будет меньше $\varepsilon$. \\
+\textbf{Сходимость.}
+Доказываем, что \[\lim_{y \to y_0} G(y) = \int_{a}^{+\infty} \varphi(x)dx.\]
+По определению предела функции нужно доказать, что
+\[
+\forall \varepsilon > 0 \quad \exists \delta > 0 : \forall y \in Y, \quad 0 < |y - y_0| < \delta \quad
+\left| G(y) - \int_{a}^{+\infty} \varphi(x)dx \right| < \varepsilon.
+\]
+Рассматриваем этот модуль, испольузуем неравенство треугльника:
+\begin{align*}
+\Bigl| \int_{a}^{+\infty} & f(x, y)dx - \int_{a}^{+\infty} \varphi(x)dx \Bigr| \\
+&\leq \Bigl| \int_{a}^{+\infty} f(x, y)dx - \int_{a}^{A} f(x, y)dx \Bigr| \\
+&\quad + \Bigl| \int_{a}^{A} \bigl(f(x, y) - \varphi(x)\bigr) dx \Bigr| \\
+&\quad + \Bigl| \int_{a}^{A} \varphi(x)dx - \int_{a}^{+\infty} \varphi(x)dx \Bigr|.
+\end{align*}
+Необходимо, чтобы сумма была меньше $\varepsilon$. Для этого необходимо,
+чтобы каждое слагаемое было меньше $\frac{\varepsilon}{3}$.
+
+Выбираем $A$. Рассматривая последний модуль, мы доказали, что интеграл $\int_{a}^{+\infty} \varphi(x)dx$ сходится. То есть при достаточно большом $A$ последний модуль будет меньше $\frac{\varepsilon}{3}$.
+Выбирая то же $A$, первый модуль тоже будет меньше $\frac{\varepsilon}{3}$.
+
+Второй модуль имеет конечные пределы. Его можно сделать меньше $\frac{\varepsilon}{3}$, используя условие 1 теоремы о равномерной сходимости $f(x, y)$ к $\varphi(x)$ на отрезке $[a, A]$. Для этого нужно выбрать такое $\delta > 0$, что при $0 < |y - y_0| < \delta$ будет выполнено требуемое неравенство.
+
+Таким образом, все три слагаемых будут меньше $\frac{\varepsilon}{3}$, значит сумма будет меньше $\varepsilon$. Теорема доказана.
+\end{proof}
+
+\end{document}
