@@ -1,16 +1,16 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage[russian]{babel}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{mathtools}
+\usepackage{amsmath,amssymb,mathtools}
 \usepackage{enumitem}
-\DeclareMathOperator{\rank}{rank}
 \usepackage{tikz}
 \usetikzlibrary{matrix,fit}
-\usepackage[a4paper, left=1.5cm, right=1.5cm, top=1.5cm, bottom=1.5cm]{geometry}\setlength{\parindent}{0pt}
+\usepackage[a4paper,left=1.5cm,right=1.5cm,top=1.5cm,bottom=1.5cm]{geometry}
+\setlength{\parindent}{0pt}
 
-\title{Билет 5. Условный экстремум. Необходимые условия. Метод множителей Лагранжа.}
+\DeclareMathOperator{\rank}{rank}
+
+\title{Билет 5. Условный экстремум. Необходимые условия. Метод множителей Лагранжа}
 \author{}
 \date{}
 
@@ -20,262 +20,303 @@
 
 \section{Постановка задачи}
 
-Пусть задана функция  
+Пусть задана функция
 \[
-    y = f(x_1, \dots, x_n, x_{n+1}, \dots, x_{n+m}), \qquad \vec{x} \in G \subset \mathbb{R}^{n+m},
-\]  
-уравнение связи:
+f(x_1,\dots,x_{n+m}), \qquad x \in G \subset \mathbb{R}^{n+m},
+\]
+и система уравнений связи
 \[
-    \varphi_j(x_1, \dots, x_{n+m}) = 0, \quad j = \overline{1, m}.
-\]  
+\varphi_j(x_1,\dots,x_{n+m}) = 0, \quad j = 1,\dots,m.
+\]
 
+Пусть точка $\bar{x} \in G$ удовлетворяет уравнениям связи:
+\[
+\varphi_j(\bar{x}) = 0, \quad j = 1,\dots,m.
+\]
+
+\textbf{Определение.}
+Точка $\bar{x}$ называется точкой \textbf{условного (относительного) максимума}, если
+\[
+\exists\,\delta>0:\quad f(x)\le f(\bar{x})
+\]
+для всех $x$, таких что
+\[
+\begin{cases}
+0<\rho(x,\bar{x})<\delta,\\
+\varphi_j(x)=0,\quad j=1,\dots,m.
+\end{cases}
+\]
+
+Аналогично определяется точка \textbf{условного минимума}:
+\[
+f(x)\ge f(\bar{x}).
+\]
+
+\section{Необходимые условия условного экстремума}
+
+Пусть функция $f$ и функции связей $\varphi_j$ непрерывны и имеют непрерывные
+частные производные первого порядка.
+
+Рассмотрим матрицу Якоби функций связей:
+\[
+\frac{\partial \varphi}{\partial x}
+=
+\begin{tikzpicture}[baseline=(M.center)]
+\matrix (M) [
+matrix of math nodes,
+left delimiter=(,
+right delimiter=),
+column sep=1ex,
+row sep=0.5ex
+] {
+\dfrac{\partial \varphi_1}{\partial x_1} & \cdots & \dfrac{\partial \varphi_1}{\partial x_n}
+& \dfrac{\partial \varphi_1}{\partial x_{n+1}} & \cdots & \dfrac{\partial \varphi_1}{\partial x_{n+m}} \\
+\vdots & \ddots & \vdots & \vdots & \ddots & \vdots \\
+\dfrac{\partial \varphi_m}{\partial x_1} & \cdots & \dfrac{\partial \varphi_m}{\partial x_n}
+& \dfrac{\partial \varphi_m}{\partial x_{n+1}} & \cdots & \dfrac{\partial \varphi_m}{\partial x_{n+m}} \\
+};
+\node[draw=red,thick,inner sep=2pt,fit=(M-1-4)(M-3-6)] {};
+\end{tikzpicture}
+\]
+
+Пусть в точке $\bar{x}$ существует ненулевой минор порядка $m$,
+соответствующий последним $m$ столбцам (выделен красным квадратом).
+
+Тогда, по теореме о неявной функции, существует окрестность точки $\bar{x}$,
+которую будем обозначать символом (*), в которой система уравнений связи
+однозначно разрешима относительно переменных $x_{n+1},\dots,x_{n+m}$:
+\begin{equation}
+\begin{cases}
+x_{n+1} = g_1(\widetilde{x}),\\
+\vdots\\
+x_{n+m} = g_m(\widetilde{x}),
+\end{cases}
+\tag{*}
+\end{equation}
+где $\widetilde{x}=(x_1,\dots,x_n)$.
+
+\section{Переход к безусловному экстремуму}
+
+Определим функцию
+\[
+\widetilde{f}(\widetilde{x})
+=
+f\bigl(\widetilde{x},g_1(\widetilde{x}),\dots,g_m(\widetilde{x})\bigr).
+\]
+
+Для точек из окрестности (*) значения функции $f$,
+ограниченной условиями связи, совпадают со значениями функции $\widetilde{f}$.
+
+Так как точка $\bar{x}$ является точкой условного экстремума функции $f$,
+то точка $\bar{\widetilde{x}}$ является точкой безусловного экстремума функции
+$\widetilde{f}$.
+
+Следовательно,
+\[
+d\widetilde{f}(\bar{\widetilde{x}})=0.
+\]
+
+По инвариантности дифференциала первого порядка имеем:
+\begin{equation}
+d\widetilde{f}(\bar{\widetilde{x}})
+=
+df(\bar{x})
+=
+\sum_{k=1}^{n+m}
+\frac{\partial f(\bar{x})}{\partial x_k}\,dx_k.
+\tag{**}
+\end{equation}
+
+Если бы все дифференциалы $dx_k$ были независимы,
+то из этого равенства следовало бы, что
+$\frac{\partial f}{\partial x_k}(\bar{x})=0$ для всех $k$.
+Однако это неверно, так как между переменными существуют связи (*).
+
+\section{Связь дифференциалов}
+
+Так как
+\[
+\varphi_j(\widetilde{x},g_1(\widetilde{x}),\dots,g_m(\widetilde{x}))\equiv0,
+\]
+то
+\[
+d\varphi_j(\bar{x})
+=
+\sum_{k=1}^{n+m}
+\frac{\partial \varphi_j(\bar{x})}{\partial x_k}\,dx_k
+=
+0,
+\quad j=1,\dots,m.
+\]
+
+Эта система линейных уравнений относительно дифференциалов
+$dx_{n+1},\dots,dx_{n+m}$ имеет единственное решение,
+так как соответствующий минор матрицы Якоби ненулевой.
+Следовательно,
+\begin{equation}
+dx_{n+j}=\sum_{s=1}^{n} c_{js}\,dx_s,
+\quad j=1,\dots,m.
+\tag{***}
+\end{equation}
+
+Подставляя (***) в (**), получаем
+\[
+df(\bar{x})=\sum_{i=1}^{n}\beta_i\,dx_i.
+\]
+
+Так как дифференциалы $dx_1,\dots,dx_n$ независимы, необходимо
+\[
+\beta_i=0,\quad i=1,\dots,n.
+\]
+
+Мы получили систему $n$ уравнений для $n+m$ неизвестных,
+что является неудобной формой необходимых условий.
+
+\section{Вывод метода множителей Лагранжа}
+
+Для получения более удобной формы необходимых условий
+вводится вспомогательная функция --- \textbf{функция Лагранжа}:
+\[
+F(x,\lambda)
+=
+f(x)+\sum_{j=1}^{m}\lambda_j\varphi_j(x),
+\]
+где $\lambda_1,\dots,\lambda_m$ --- множители Лагранжа.
+
+Рассмотрим дифференциал функции $F$ в точке $\bar{x}$:
+\[
+dF(\bar{x})
+=
+\sum_{k=1}^{n+m}
+\frac{\partial f(\bar{x})}{\partial x_k}\,dx_k
++
+\sum_{j=1}^{m}\lambda_j
+\sum_{k=1}^{n+m}
+\frac{\partial \varphi_j(\bar{x})}{\partial x_k}\,dx_k.
+\]
+
+Последняя сумма равна нулю, так как
+$d\varphi_j(\bar{x})=0$.
+Следовательно,
+\[
+dF(\bar{x})=df(\bar{x}).
+\]
+
+Таким образом, необходимое условие условного экстремума
+можно записать в виде
+\[
+dF(\bar{x})=0.
+\]
+
+Так как дифференциалы $dx_1,\dots,dx_n$ независимы,
+это равносильно системе
+\[
+\frac{\partial F}{\partial x_k}(\bar{x},\bar{\lambda})=0,
+\quad k=1,\dots,n+m.
+\]
+
+Дополнительно выполняются уравнения связи:
+\[
+\frac{\partial F}{\partial \lambda_j}(\bar{x},\bar{\lambda})
+=
+\varphi_j(\bar{x})=0,
+\quad j=1,\dots,m.
+\]
+
+Таким образом, получаем систему $n+2m$ уравнений
+для $n+2m$ неизвестных $x_1,\dots,x_{n+m},\lambda_1,\dots,\lambda_m$.
+
+Это и есть необходимые условия условного экстремума,
+полученные методом множителей Лагранжа.
+
+
+\section{Преимущества метода множителей Лагранжа}
+
+Полученные ранее необходимые условия условного экстремума
+в виде равенств
+\[
+\beta_i = 0, \quad i=1,\dots,n,
+\]
+представляют собой систему $n$ уравнений для $n+m$ неизвестных.
+Для их получения требовалось:
 \begin{itemize}
-    \item Рассмотрим $ y = f( ) $, рассмотрим уравнение связи.
-    \item Рассмотрим $ \bar{x} \in G $ — ge пусть точка, удовлетворяет условиям связи.
-    \item Точка $\bar{x}$ называется \textbf{точкой относительного (условного) максимума}, если  
-    \[
-        \exists\, \delta > 0:\quad f(x) \leq f(\bar{x}) \quad \text{при} \quad
-        \begin{cases}
-            0 < \rho(\bar{x}, x) < \delta, \\
-            \varphi_j(x) = 0, \quad j = \overline{1, m}.
-        \end{cases}
-    \]
-    \item Аналогично — условный минимум: $ f(x) > f(\bar{x}) $.
+    \item разрешать систему уравнений связи;
+    \item выражать зависимые дифференциалы через независимые;
+    \item подставлять эти выражения в дифференциал функции $f$;
+    \item приводить подобные члены и приравнивать коэффициенты при
+    независимых дифференциалах к нулю.
 \end{itemize}
-% тут пример 
-% 2 страница тетради
 
-\subsection*{Необходимые условия экстремума}
+Такой способ вывода является громоздким и неудобным для практических вычислений.
 
-Рассмотрим $ \bar{x} \in G \subset \mathbb{R}^{n+m} $, и предположим, что $ \bar{x} $ — точка условного экстремума.
-
-Пусть $ f $ — непрерывна и имеет непрерывные частные производные 1-го порядка.
-
-Функции $ \varphi_j(x) $ — непрерывны и имеют непрерывные частные производные 1-го порядка.
-
-Т.к. существуют частные производные 1-го порядка: $ \dfrac{\partial f}{\partial x_i} $ и $ \dfrac{\partial \varphi_j}{\partial x_i} $.
-
-Рассмотрим матрицу Якоби:
-
-
+Метод множителей Лагранжа позволяет избежать всех этих промежуточных шагов.
+Вместо явного исключения зависимых переменных вводится вспомогательная функция
+Лагранжа
 \[
-\frac{\partial \varphi}{\partial x} =
-    \begin{tikzpicture}[baseline=(M.center)]
-        \matrix (M) [
-            matrix of math nodes,
-            left delimiter=(,
-            right delimiter=),
-            column sep=1ex,
-            row sep=0.5ex
-        ] {
-            \dfrac{\partial \varphi_1}{\partial x_1} & \cdots & \dfrac{\partial \varphi_1}{\partial x_n} & \dfrac{\partial \varphi_1}{\partial x_{n+1}} & \cdots & \dfrac{\partial \varphi_1}{\partial x_{n+m}} \\
-            \vdots & \ddots & \vdots & \vdots & \ddots & \vdots \\
-            \dfrac{\partial \varphi_m}{\partial x_1} & \cdots & \dfrac{\partial \varphi_m}{\partial x_n} & \dfrac{\partial \varphi_m}{\partial x_{n+1}} & \cdots & \dfrac{\partial \varphi_m}{\partial x_{n+m}} \\
-        };
-        \node[draw=red,thick,inner sep=2pt,fit=(M-1-4)(M-3-6)] {};
-    \end{tikzpicture}_{\,m \times (n+m)}
+F(x,\lambda) = f(x) + \sum_{j=1}^{m} \lambda_j \varphi_j(x),
+\]
+и задача поиска условного экстремума функции $f$
+при уравнениях связи $\varphi_j(x)=0$
+сводится к задаче поиска стационарных точек функции $F$
+в пространстве переменных $(x,\lambda)$.
+
+Хотя число неизвестных увеличивается с $n+m$ до $n+2m$,
+это увеличение компенсируется тем, что:
+\begin{itemize}
+    \item не требуется явно выражать одни переменные через другие;
+    \item все необходимые условия записываются в симметричной форме;
+    \item уравнения $\dfrac{\partial F}{\partial x_i}=0$ имеют одинаковый вид;
+    \item множители Лагранжа $\lambda_j$ определяются автоматически
+    как часть решения системы.
+\end{itemize}
+
+Таким образом, метод множителей Лагранжа является более удобным,
+универсальным и эффективным способом нахождения необходимых условий
+условного экстремума по сравнению с прямым исключением переменных.
+
+
+
+\section{Для дебильника (GPT)}
+\section*{Необходимые условия условного экстремума}
+
+Пусть задана функция
+\[
+f(x_1,\dots,x_{n+m}), \qquad x \in G \subset \mathbb{R}^{n+m},
+\]
+и система уравнений связи
+\[
+\varphi_j(x_1,\dots,x_{n+m}) = 0, \quad j=1,\dots,m.
 \]
 
-Пусть в точке $\bar{x}$ хотя бы один из миноров порядка \( m \) отличен от нуля.
+\subsection*{1. Через линейную зависимость градиентов}
 
-И \( \varphi_j(\bar{x}) = 0 \), \( j = \overline{1, m} \).
-
-Для определенности это минор, соответствующий последним \( m \) столбцам (красным квадратом выделено).
-
-Тогда можем рассмотреть систему уравнений
+Если функция $f$ и функции связей $\varphi_j$ имеют непрерывные частные производные первого порядка,  
+и точка $\bar{x}$ является точкой условного экстремума,  
+а матрица Якоби функций связей
 \[
-    \varphi_j(\bar{x}) = 0, \quad j = \overline{1, m}.
+\frac{\partial(\varphi_1,\dots,\varphi_m)}{\partial(x_1,\dots,x_{n+m})}(\bar{x})
+\]
+имеет ранг $m$, то градиенты функций $f$ и $\varphi_j$ в точке $\bar{x}$ линейно зависимы.  
+То есть существуют такие числа $\lambda_1,\dots,\lambda_m$, что
+\[
+\nabla f(\bar{x}) = \sum_{j=1}^{m} \lambda_j \nabla \varphi_j(\bar{x}).
 \]
 
-Тогда можно применить теорему о существовании неявных функций.
+\subsection*{2. Через метод множителей Лагранжа}
 
-Обозначим \( \widetilde{x} = (x_1, \dots, x_n) \). Тогда
+Вводим функцию Лагранжа
 \[
-    \begin{cases}
-        x_{n+1} = g_1(\widetilde{x}) \\
-        \vdots \\
-        x_{n+m} = g_m(\widetilde{x})
-    \end{cases}
-\]
-где функции \( g_1, \dots, g_m \) — непрерывны и имеют непрерывные частные производные по переменным \( x_1, \dots, x_n \). Предположения гарантируют, что найдётся параллелепипед с центром в \( \bar{x} \), где система (1) однозначно разрешима.
-
-Пусть \( \bar{x} \) - точка условного экстремума. Рассмотрим функцию 
-\[
-f(\widetilde{x},x_{n+1},\dots, x_{n+m}) = f(\widetilde{x},g_1(\widetilde{x}),\dots, g_m(\widetilde{x})).
-\]
-Имеем \( f(x_1, \dots, x_n, x_{n+1}, \dots, x_{n+m}) \) и уравнения связи \( \varphi_j(x_1, \dots, x_{n+m}) = 0, \quad j = \overline{1, m} \), определённые в \( \mathbb{R}^{n+m} \).
-
-Если \( \bar{x} \) - точка условного экстремума, то какие условия?
-Делаем предположение:
-
-Рассмотрим матрицу Якоби.
-
-
- $\frac{\partial \varphi}{\partial \bar{x}} (\bar{x})$, хотя бы 1 из миноров порядка $m$ в точке $\bar{x}$ не нулевой.
-
-Значит можем разрешить относительно переменной, не входящей? в 0 минора.
-%уточнить слово
-Тогда можем построить окрестность $\bar{x}$*, что в ней уравнение связи однозначно разрешимо и:
-\[
-    \begin{cases}
-        x_{n+1} = g_1(\widetilde{x}) \\
-        \vdots \\
-        x_{n+m} = g_m(\widetilde{x})
-    \end{cases}
-    \tag{**}
+F(x,\lambda) = f(x) + \sum_{j=1}^{m} \lambda_j \varphi_j(x), \qquad \lambda = (\lambda_1,\dots,\lambda_m).
 \]
 
-
-Тогда $\widetilde{f}(\widetilde{x}) = f(\widetilde{x}, g_1(\widetilde{x}), \ldots, g_m(\widetilde{x}))$
-
-Для точек в окр. $\bar{x}$ (*) $f$ и $\widetilde{f}$ совп.
-
-Тогда можем применить известное условие
-
-Рассмотрим $ \widetilde{f}(\widetilde{x})$. В точке подозрительной на экстремум частные производные обратятся в ноль.
-
-$0 = d\bar{f} = \sum_{i=1}^{n} \frac{\partial \widetilde{f}}{\partial x_i} dx_i$ 
-(по свойствам инварианта формы 1го диф совпадает(форма диф ф 1го совпадает с) )
-\begin{equation}
-= \sum_{j=1}^{n+m} \frac{\partial f(\bar{x})}{\partial x_j} dx_j = \quad \text{(инвариант дифф. 1го порядка).} \tag{***}
-\end{equation}
-если $dx_i$ не зав., то было бы обнулили все кроме частных производных первого порядка, потом второго обнулили и следовательно все частные производные $f = 0$, но так как предполагали (**) $x_i$ - зависимые, то мы не можем сделать такой вывод (что $f=0$).
-Но можем выразить зависимые через независимые.
-
-%я тут
-
-$\widetilde{\varphi}_j(\widetilde{x}, g_1(\widetilde{x}), \dots, g_n(\widetilde{x})) \equiv 0$
-
-так как $\equiv 0$, то $0 \equiv d\widetilde{\varphi}_j$
-
-Рассмотрим $d\widetilde{\varphi}_j $ в точке $\bar{\widetilde{x}}$ , тогда прост = 0?
-
-по свойству инвариант формы 1 дифференциала.
-
-$\Rightarrow d\widetilde{\varphi}_j = d\varphi_j(\bar{x}) = \sum_{k=1}^{n+m} \frac{\partial \varphi_j(\bar{x})}{\partial x_k} dx_k$
-
-и $d\varphi_j(\bar{x}) = 0$
-
-Заметим, что $dx_k$ входят линейным образом,
-
-а наша задача устанавливает зависимость между диф.
-
-$dx_1, \dots, dx_n - \text{независимы}$
-
-$d x_{n+1}, \dots, d x_{n+m} - \text{зависимы от } dx_1, \dots, dx_n$
-
-чтобы рассмотреть эту связь, то рассмотрим (***) эту систему. Заметим, что, если к этой системе в матричной форме
-\\
-$A d\widetilde{x} + B d\hat{x} = 0$
-
-$\widetilde{x}$ - первые компоненты вектора
-
-$\hat{x}$ - последние (зависимые)
-\\
-(кв, неособая матрица однозначным образом разрешима)\\
-
-зависимые представляют сумму независимых.
-\begin{equation}
-d x_{n + j} = \sum_{s=1}^{n} c_{js} dx_s. \tag{****}
-\end{equation}
-
-независим диф. оств., а вместо зависимых подставим (****) эти выражения(***)
-
-%я тут 2
-
-и учитывая, что они лин. отн. диф.
-
-и в результате сводится к (***)
-
-$ = \sum_{j=1}^{n+m} \frac{\partial f(\bar{x})}{\partial x_j} dx_j = \sum_{i=1}^{n} \beta_i dx_i$
-
-это необходимое условие условного экстремума
-
-при $\beta_i = 0$ ($i=1,\ldots,n$) зависит от $f(\bar{x})$
-
-ну и получаем, что каждое $\beta_i$ это линейная комбинация частных произвоодных.
-
-Мы искали точки $\bar{x}$ (подозрительные на условный экстремум)
-
-n+m неизвестных и $(j=1,\ldots,m)$ m ур-ий(тут(где) n уравнений) , т.е. система из n+m уравнений для опр-я(?) n+m неизв.
-
-система получится, но не линейная, но на этом не остановимся. хочется более красивый и удобный вид, поэтому вводим вспомогательные функции.\\
-
-$f(x, \lambda)$
-
-где $\lambda = (\lambda_1, \ldots, \lambda_m)$ это некоторые постоянные множители Лагранжа
-
-1) строим вспомогательную функцию - функцию Лагранжа - $F(x) + \sum_{j=1}^{m} \lambda_j \varphi_j(x)$
-
-она хорошо тем, что при поиске условного экстремума мы рассматриваем не все точки из $\bar{x}$ подозрительные на экстрему, а те что удовлетворяют уравнениям связи, но $\varphi_j(x)$ в таких точка $=0$ и получается старая функция Лагранжа = новой? хз.
-
-Рассмотрим $d\widetilde{F}(\bar{\widetilde{x}}) = dF(\widetilde{x}, g(\widetilde{x})) =$
-по сврйству инв. формы. 1го диференциала
-
-$= dF(x)$ %F или f
-
-Рассмотрим в точках подозрительных на условный экстремум
-
-$d\widetilde{F}(\bar{\widetilde{x}})= dF(\bar{\widetilde{x}}, g(\bar{\widetilde{x}})) = dF(\bar{x}) = \sum_{k=1}^{n+m} \frac{\partial f(\bar{x})}{\partial x_j} dx_k +$(последняя сумма должно = 0)
-
-$+ \sum_{j=1}^{m} \lambda_j \sum_{k=1}^{n+m} \frac{\partial \varphi_j(\bar{x})}{\partial x_k} dx_k = $ (последнее сумма = 0)
-
-т.е. все это = 0
-
-$= \sum_{k=1}^{n+m} \frac{\partial F(\bar{x}, \lambda)}{\partial x_k} dx_k =$
-
-$= \sum_{k=1}^{n}  + \sum_{k=n+1}^{n+m}$
-(первая сумма зав. вторая сумма зачеркнута(наверное = 0))
-
-
-%я тут 3
-
-Запишем выражение в виде
-
-$\left( \frac{\partial F}{\partial x_k}(\bar{x}) + \sum_{j=1}^{m} \lambda_j \frac{\partial \varphi_j}{\partial x_k}(\bar{x}) \right) dx_k$
-= 0
-и теперь можно выбирать и умножать на 0.
-
-$\lambda_j$ - линейным образом входит
-
-Получили систему линейных алгебраических уравнений,
-
-(и их m , и уравнений m , т.е. рассмотрим сумму от n до n+m.)
-
-в которой m уравнений
-
-Рассмотрим матрицу:
-
-$A \lambda + B = 0$
-
-$\uparrow$
-
-эта матрица состоит из последних m столбцов, матрицы Якоби и $\det \neq 0$
-
-$\frac{\partial F(\bar{x}, \lambda)}{\partial x_k} = 0, \quad k=n+1, \ldots, n+m$
-
-$\varphi_j(x) = 0 = , \quad j=1,\ldots,m$
-
-$ = \frac{\partial F(\bar{x}, \lambda)}{\partial \lambda_j} = 0$
-
-т.е. мы рассм. неизв.
-
-$\bar{x}$ - их $n+m$ штук
-
-и комп все $\lambda$ - m
-
-Следовательно n+2m неизвестных
-
-Уравнений n+2m совпадает
-
-
-необходимое условие условного экстремума.
-
-В чем преимущества метода Лагранжа.
-
-Было $(n+m)$ стало $(n+2m)$ как будто стало хуже, но там реш. лин. алг. сис. из уравнений m неизвестных, а здесь аналогично, но относительно других переменных $\lambda_1, \dots, \lambda_m$ но пред. нет. решение сис. подств в диф-ан фун-ций, приводить подобные члены и потом коэф $\beta_i$ приравнивать к нулю
-
-А в методе множителей Лагранжа подстановку делать не надо, сразу получ. условия
-а дальше , то нужны будут еще и достаточные условия
+Необходимые условия условного экстремума точки $\bar{x}$ заключаются в существовании множителей Лагранжа $\bar{\lambda}_1,\dots,\bar{\lambda}_m$, таких что
+\[
+\begin{cases}
+\dfrac{\partial F}{\partial x_i}(\bar{x},\bar{\lambda}) = 0, & i=1,\dots,n+m,\\[2mm]
+\dfrac{\partial F}{\partial \lambda_j}(\bar{x},\bar{\lambda}) = \varphi_j(\bar{x}) = 0, & j=1,\dots,m.
+\end{cases}
+\]
+
+Иными словами, $(\bar{x},\bar{\lambda})$ является стационарной точкой функции Лагранжа $F$.
 
 \end{document}
