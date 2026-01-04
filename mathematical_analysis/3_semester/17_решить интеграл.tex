@@ -1,0 +1,225 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage[a4paper, left=1.5cm, right=1.5cm, top=1.5cm, bottom=1.5cm]{geometry}\setlength{\parindent}{0pt}
+
+\title{Билет 17. Вычисление \( \int_{0}^{+\infty} \frac{\sin x}{x} \, dx \).}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\[
+\int_{0}^{+\infty} \frac{\sin x}{x} \, dx \quad - \text{ интеграл Дирихле}
+\]
+
+\[
+\downarrow \quad \int \frac{\sin x}{x} \, dx \text{ — не берущийся.}
+\]
+
+Несобственный интеграл 1 рода, поскольку при \( x = 0 \) функция не имеет особенности.
+\[
+\lim_{x \to 0} \frac{\sin x}{x} = 1,
+\]
+следовательно, это не несобственный интеграл 2 рода.
+
+Свойство интегралов Римана: если функция переопределена в конечном числе точек,
+это не мешает сходимости интеграла.
+
+\[
+f(x) =
+\begin{cases}
+\frac{\sin x}{x}, & x > 0 \\
+1, & x = 0
+\end{cases}
+\quad \text{Доопределение на } x=0 \text{ не влияет на значение интеграла.}
+\]
+
+\[
+[0, +\infty) \text{ — функция непрерывна.}
+\]
+
+\text{Применим принцип Дирихле для сходимости интеграла:}
+
+\[
+h(x) = \sin x \quad g(x) = \frac{1}{x}
+\]
+
+\[
+F(x) = \cos x \quad \text{ограничена.}
+\]
+
+\text{Все условия выполнены. Интеграл сходится. Теперь нужно найти его значение.}
+
+\[
+\int_{0}^{+\infty} \frac{\sin(\lambda x)}{x} \, dx \quad \lambda \geq 0
+\]
+
+\text{Опять доопределим функцию:}
+
+\[
+f(x) =
+\begin{cases}
+\frac{\sin(\lambda x)}{x}, & x > 0 \\
+\lambda, & x = 0
+\end{cases}
+\quad \lim_{x \to 0} \frac{\sin(\lambda x)}{x} = \lambda
+\]
+
+Функция непрерывна. Интеграл сходится от параметра,
+но пока не можем работать с интегралом, введём ещё один параметр.
+
+\[
+\int_{0}^{\infty} e^{-\gamma x} \cdot \frac{\sin(\lambda x)}{x} \, dx, \quad \gamma > 0, \quad x \geq 0
+\]
+
+Признак Абеля гарантирует сходимость.
+Теперь дифференцируем по \( \lambda \) (теорема 4).
+После этого перейдём к пределу (теорема 1) при \( \gamma \to 0 \).
+
+\[
+\varphi(x, \lambda) = e^{-\gamma x} \frac{\sin(\lambda x)}{x}
+\]
+
+\[
+\varphi(x, 0) = 0, \quad \varphi(0, \lambda) = \lambda \quad \checkmark
+\]
+
+1) \( \varphi(x, \bar{\lambda}) \) — непрерывна на \( [0, +\infty) \), выполняются условия для дифференцирования под знаком интеграла.
+
+2) \( \frac{\partial \varphi(x, \lambda)}{\partial \lambda} = e^{-\gamma x} \cos(\lambda x) \)
+
+3) Применяем принцип сравнения.
+
+4) \( \int_{0}^{+\infty} e^{-\gamma x} \cos(\lambda x) \, dx \quad |e^{-\gamma x} \cos(\lambda x)| \leq e^{-\gamma x} \)
+
+\[
+\int_{0}^{+\infty} e^{-\gamma x} \, dx \quad \text{сходится.}
+\]
+
+\text{Таким образом, все 4 условия для дифференцирования под знаком интеграла выполнены.}
+
+\text{Теперь можно дифференцировать.}
+
+\[
+G'(\lambda) = \int_{0}^{+\infty} e^{-\gamma x} \cos(\lambda x) \, dx
+\]
+
+\text{Теперь применяем интегрирование по частям. Рассмотрим:}
+
+\[
+I = \int_{0}^{\infty} e^{-\gamma x} \cos(\lambda x) \, dx
+\]
+
+Решение по частям:
+
+\[
+I = \left[ \frac{e^{-\gamma x} \sin(\lambda x)}{\lambda} \right]_{0}^{\infty} - \int_{0}^{\infty} \frac{e^{-\gamma x} \cos(\lambda x)}{\lambda} \, dx
+\]
+
+На границе \(x = \infty\) вторая часть стремится к нулю, поскольку \(e^{-\gamma x} \to 0\) при \(x \to +\infty\), а \( \sin(\lambda x) \) и \( \cos(\lambda x) \) ограничены. На границе \(x = 0\) мы получаем:
+
+\[
+\frac{e^{-\gamma x} \sin(\lambda x)}{\lambda} \Big|_0^\infty = 0
+\]
+
+Таким образом, остается:
+
+\[
+I = \int_{0}^{\infty} \frac{\gamma}{\gamma^2 + \lambda^2} \, dx = \frac{1}{\gamma^2 + \lambda^2}
+\]
+
+\text{Теперь используем формулу Ньютона-Лейбница:}
+
+\[
+G(\lambda) - G(0) = \int_{0}^{\lambda} \frac{\gamma}{\gamma^2 + t^2} \, dt = \arctg \frac{t}{\gamma} \Bigg|_{0}^{\lambda} =
+\]
+
+\[
+= \arctg \frac{\lambda}{\gamma} \quad * G(0) = 0
+\]
+
+\[
+! \text{ Так как } \lambda \geq 0, \gamma > 0, \quad \text{то } \lambda \geq 0 \text{ можно подставить.}
+\]
+
+\[
+\text{А } \gamma = 0 \quad \text{не можем / ну и делать нельзя.}
+\]
+
+Рассмотрим:
+
+\[
+H(\gamma) = \int_{0}^{\infty} e^{-\gamma x} \frac{\sin(\lambda x)}{x} \, dx = \arctg \frac{\lambda}{\gamma}
+\]
+
+\[
+\gamma > 0, \lambda > 0; \quad \lambda \text{ зафиксирован, рассматриваем зависимость от } \gamma.
+\]
+
+Теперь переходим к пределу:
+
+\[
+\lim_{\gamma \to 0} H(\gamma) = \frac{\pi}{2}
+\]
+
+Переходя к пределу под знаком интеграла, получаем:
+
+\[
+\text{Условия теоремы:}
+\]
+1) \( \forall A > 0: \frac{e^{-\gamma x} \sin(\lambda x)}{x} \xrightarrow[\gamma \to +0]{} \frac{\sin(\lambda x)}{x} \) равномерно на промежутке \( [0, A] \).
+
+\[
+\left| e^{-\gamma x} \frac{\sin(\lambda x)}{x} - \frac{\sin(\lambda x)}{x} \right| = \left| \frac{\sin(\lambda x)}{x} \right| \cdot \left| e^{-\gamma x} - 1 \right| \leq \lambda A \gamma \xrightarrow[\gamma \to +0]{} 0
+\]
+
+\[
+e^{-z} - 1 = q(z) - q(0) =
+\]
+
+Если \( q = e^{-z} \), то \( q \) дифференцируема,
+т.е. применима формула конечных приращений Лагранжа.
+
+\[
+\ominus 0 < \Theta < 1
+\]
+
+\[
+= z \cdot q'(\Theta z) = -z \cdot e^{-\Theta z} 
+\]
+
+\[
+\quad \left| e^{-\gamma x} - 1 \right| = |\gamma x| e^{-\Theta \gamma x} \leq |\gamma x| \leq |\gamma| A
+\]
+
+\[
+x \in [0, A]
+\]
+
+\text{Но еще было условие, что интеграл равномерно сходится на множестве \( Y \).}
+
+Пример по критерию Коши: нужно показать, что
+\[
+\forall \varepsilon > 0 \ \exists B :
+\forall A', A'' \geq B \ \forall \gamma > 0
+\]
+
+\[
+\left| \int_{A'}^{A''} e^{-\gamma x} \frac{\sin(\lambda x)}{x} \, dx \right| < \varepsilon
+\]
+
+\[
+\lim_{\gamma \to 0} H(\gamma) = \frac{\pi}{2} = \int_{0}^{\infty} \frac{\sin(\lambda x)}{x} \, dx, \quad \lambda > 0
+\]
+
+\[
+\boxed{\text{Ответ: } \frac{\pi}{2}.}
+\]
+
+\end{document}
