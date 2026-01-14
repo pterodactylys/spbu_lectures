@@ -1,0 +1,180 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage[a4paper, left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Теорема}
+\newtheorem{lemma}[theorem]{Лемма}
+\newtheorem{corollary}[theorem]{Следствие}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Определение}
+\newtheorem{example}{Пример}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Замечание}
+
+\setlength{\parindent}{1.5em}
+
+\title{Билет 1. Условия существования решений систем уравнений}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{Система уравнений}
+Рассматриваем обощение задачи о неявной функции. Рассматриваем систему:
+\begin{equation}
+    \begin{cases}
+        F_1(x_1, x_2, \ldots, x_n, y_1, y_2, \ldots, y_m) = 0 \\
+        F_2(x_1, x_2, \ldots, x_n, y_1, y_2, \ldots, y_m) = 0 \\
+        \vdots \\
+        F_m(x_1, x_2, \ldots, x_n, y_1, y_2, \ldots, y_m) = 0
+    \end{cases}
+\end{equation}
+Сокращенно:
+\begin{equation}
+    F(\mathbf{x}, \mathbf{y}) = 0,
+\end{equation}
+Будем считать, что $F_i$ определены на 
+некотором множестве $D \subset \mathbb{E}^{n+m}$.
+
+Выбираем вектор $\bar{\mathbf{x}}$ и подставляем его в систему:
+\begin{equation}
+    F(\bar{\mathbf{x}}, \mathbf{y}) = 0.
+\end{equation}
+и пытаемся найти вектор $\mathbf{y} = \bar{\mathbf{y}}$, являющийся решением этой системы.
+Это будет правило, как каждому $\bar{\mathbf{x}}$ сопоставить $\bar{\mathbf{y}}$.
+Получаем некоторую векторную функцию $\mathbf{y} = f(\mathbf{x})$ (сокращенная запись).
+\begin{equation}
+    \begin{cases}
+        y_1 = f_1(x_1, x_2, \ldots, x_n) \\
+        y_2 = f_2(x_1, x_2, \ldots, x_n) \\
+        \vdots \\
+        y_m = f_m(x_1, x_2, \ldots, x_n)
+    \end{cases}
+\end{equation}
+Отметим, что в этой системе $x_1, \ldots, x_n$ могут рассматриваться как независимые переменные, а $y_1, \ldots, y_m$
+как зависимые переменные, являющиеся функциями от независимых переменных. Получим что
+независимых переменных $n$, а зависимых $m$. Уравнений тоже $m$.
+
+
+Рассматриваем набор функций:
+\begin{equation}
+    \begin{cases}
+        y_1 = f_1(x_1, x_2, \ldots, x_n), \\
+        y_2 = f_2(x_1, x_2, \ldots, x_n), \\
+        \ldots, \\
+        y_m = f_m(x_1, x_2, \ldots, x_n).
+    \end{cases}
+\end{equation}
+Будем считать что эти функции определены и непрерывно дифференцируемы
+на некотором множестве $G \subset \mathbb{E}^n$.
+
+Для этого набора соствлявем особую матрицу:
+\begin{definition}{Матрица Якоби}
+
+Матрицей Якоби набора функций $y_1, y_2, \ldots, y_m$ от переменных
+$x_1, x_2, \ldots, x_n$ называется матрица частных производных этих функций
+по этим переменным:
+\begin{equation}
+    \begin{bmatrix}
+        \frac{\partial y_1}{\partial x_1} & \frac{\partial y_1}{\partial x_2} & \ldots & \frac{\partial y_1}{\partial x_n} \\
+        \frac{\partial y_2}{\partial x_1} & \frac{\partial y_2}{\partial x_2} & \ldots & \frac{\partial y_2}{\partial x_n} \\
+        \vdots & \vdots & \ddots & \vdots \\
+        \frac{\partial y_m}{\partial x_1} & \frac{\partial y_m}{\partial x_2} & \ldots & \frac{\partial y_m}{\partial x_n}
+    \end{bmatrix}
+\end{equation}
+В этой матрице $m$ строк и $n$ столбцов.
+\end{definition}
+
+Рассматриваем частный случай, когда $m = n$, то есть количество зависимых переменных равно количеству независимых переменных.
+В этом случае матрица Якоби является квадратной матрицей. Тогда мы можем
+вычислить определитель этой матрицы, который называется якобианом:
+\begin{definition}{Функциональный определитель (Якобиан)}
+
+Якобианом набора функций $y_1, y_2, \ldots, y_n$ от переменных
+$x_1, x_2, \ldots, x_n$ называется определитель матрицы Якоби этих функций по этим переменным:
+    \begin{equation}
+        J_y = \det \begin{bmatrix}
+            \frac{\partial y_1}{\partial x_1} & \frac{\partial y_1}{\partial x_2} & \ldots & \frac{\partial y_1}{\partial x_n} \\
+            \frac{\partial y_2}{\partial x_1} & \frac{\partial y_2}{\partial x_2} & \ldots & \frac{\partial y_2}{\partial x_n} \\
+            \vdots & \vdots & \ddots & \vdots \\
+            \frac{\partial y_n}{\partial x_1} & \frac{\partial y_n}{\partial x_2} & \ldots & \frac{\partial y_n}{\partial x_n}
+        \end{bmatrix} = \frac{D(y_1, \ldots, y_n)}{D(x_1, \ldots, x_n)}
+    \end{equation}
+\end{definition}
+
+Рассмотрим еще одну систему функций, считаем что $n$ = $m$:
+\begin{equation}
+    \begin{cases}
+        x_1 = \varphi(t_1, t_2, \ldots, t_n), \\
+        x_2 = \varphi(t_1, t_2, \ldots, t_n), \\
+        \ldots, \\
+        x_n = \varphi(t_1, t_2, \ldots, t_n).
+    \end{cases}
+\end{equation}
+Будем считать что эти функции определены и непрерывно дифференцируемы
+на некотором множестве $t \in T \subset \mathbb{E}^n$.
+
+Рассматриваем соответствующий якобиан:
+\begin{equation}
+    J_x = \det \begin{bmatrix}
+        \frac{\partial x_1}{\partial t_1} & \frac{\partial x_1}{\partial t_2} & \ldots & \frac{\partial x_1}{\partial t_n} \\
+        \frac{\partial x_2}{\partial t_1} & \frac{\partial x_2}{\partial t_2} & \ldots & \frac{\partial x_2}{\partial t_n} \\
+        \vdots & \vdots & \ddots & \vdots \\
+        \frac{\partial x_n}{\partial t_1} & \frac{\partial x_n}{\partial t_2} & \ldots & \frac{\partial x_n}{\partial t_n}
+    \end{bmatrix} = \frac{D(x_1, \ldots, x_n)}{D(t_1, \ldots, t_n)}
+\end{equation}
+
+Предположим, что мы имеем право рассматривать композицию этих двух наборов функций. Тогда получим:
+\begin{equation}
+    \begin{cases}
+        y_1 = y_1(t_1, t_2, \ldots, t_n), \\
+        y_2 = y_2(t_1, t_2, \ldots, t_n), \\
+        \ldots, \\
+        y_n = y_n(t_1, t_2, \ldots, t_n).
+    \end{cases}
+\end{equation}
+Для этой системы функций можно также определить якобиан:
+\begin{equation}
+    \frac{D(y_1, \ldots, y_n)}{D(t_1, \ldots, t_n)} = \det \begin{bmatrix}
+        \frac{\partial y_1}{\partial t_1} & \frac{\partial y_1}{\partial t_2} & \ldots & \frac{\partial y_1}{\partial t_n} \\
+        \frac{\partial y_2}{\partial t_1} & \frac{\partial y_2}{\partial t_2} & \ldots & \frac{\partial y_2}{\partial t_n} \\
+        \vdots & \vdots & \ddots & \vdots \\
+        \frac{\partial y_n}{\partial t_1} & \frac{\partial y_n}{\partial t_2} & \ldots & \frac{\partial y_n}{\partial t_n}
+    \end{bmatrix} = J
+\end{equation}
+
+Рассматриваем произведение $J_y$ и $J_x$. Из алгебры известно, что произведение
+определителей равно определителю произведения матриц. Получим:
+\begin{equation}
+    \begin{vmatrix}
+        \sum_{j=1}^{n} \frac{\partial y_1}{\partial x_j} \cdot \frac{\partial x_j}{\partial t_1} & \sum_{j=1}^{n} \frac{\partial y_1}{\partial x_j} \cdot \frac{\partial x_j}{\partial t_2} & \ldots & \sum_{j=1}^{n} \frac{\partial y_1}{\partial x_j} \cdot \frac{\partial x_j}{\partial t_n} \\
+        \sum_{j=1}^{n} \frac{\partial y_2}{\partial x_j} \cdot \frac{\partial x_j}{\partial t_1} & \sum_{j=1}^{n} \frac{\partial y_2}{\partial x_j} \cdot \frac{\partial x_j}{\partial t_2} & \ldots & \sum_{j=1}^{n} \frac{\partial y_2}{\partial x_j} \cdot \frac{\partial x_j}{\partial t_n} \\
+        \vdots & \vdots & \ddots & \vdots \\
+        \sum_{j=1}^{n} \frac{\partial y_n}{\partial x_j} \cdot \frac{\partial x_j}{\partial t_1} & \sum_{j=1}^{n} \frac{\partial y_n}{\partial x_j} \cdot \frac{\partial x_j}{\partial t_2} & \ldots & \sum_{j=1}^{n} \frac{\partial y_n}{\partial x_j} \cdot \frac{\partial x_j}{\partial t_n}
+    \end{vmatrix}
+\end{equation}
+Замечаем, что в определителе присутствуют формулы произведений сложной функции. Получаем, что
+\begin{equation}
+    J = J_y \cdot J_x
+\end{equation}
+
+\begin{definition}
+{}
+Если вторая система получена обращением первой системы, и мы можем
+гарантировать непрерывную дифференцируемость обеих систем, то произведение
+их якобианов равно единице:
+    \begin{equation}
+        J_y \cdot J_x = 1
+    \end{equation}
+\end{definition}
+\end{document}
