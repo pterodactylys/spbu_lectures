@@ -1,0 +1,78 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage[a4paper, left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Теорема}
+\newtheorem{lemma}[theorem]{Лемма}
+\newtheorem{corollary}[theorem]{Следствие}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Определение}
+\newtheorem{example}{Пример}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Замечание}
+
+\setlength{\parindent}{1.5em}
+
+\title{Билет 2. Неявные функции нескольких переменных. Теорема о существовании
+дифференцируемой неявной функции.}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{Неявные функции нескольких переменных}
+Рассматриваем систему уравнений
+\[
+\begin{cases}
+F_1(x_1,\ldots,x_n,y_1,\ldots,y_m)=0,\\[4pt]
+\vdots\\[4pt]
+F_m(x_1,\ldots,x_n,y_1,\ldots,y_m)=0,
+\end{cases}
+\]
+или в векторной форме
+\[\mathbf{F}(\mathbf{x},\mathbf{y})=\mathbf{0},\]
+где \(\mathbf{x}=(x_1,\ldots,x_n)\), \(\mathbf{y}=(y_1,\ldots,y_m)\).
+Будем считать, что \((\mathbf{x},\mathbf{y})\in D\subset\mathbb{E}^{n+m}\).
+Выбираем некоторое значение \(\bar{\mathbf{x}}\). Подставляя его в систему,
+находим корень \(\mathbf{y}=\bar{\mathbf{y}}\). Если это возможно, то
+мы получили неявную функцию \(\mathbf{y}=\mathbf{f}(\mathbf{x})\), то есть правило нахождения
+\(\mathbf{y}\) по \(\mathbf{x}\).
+
+Берем в качестве множества \(D\) прямоугольный параллелепипед. Берем точку
+\((\mathbf{x}^{(0)}, \mathbf{y}^{(0)})\). Рассматриваем параллелепипед вида:
+\[\left\{\,|x_i-x_i^{(0)}|\le a_i,\ i=1,\ldots,n;\quad |y-y^{(0)}|\le b,\right\} (2)\]
+Будем говорить, что уравнение (1) в прямоугольном параллелепипеде (2)
+однозначным образом определяет функцию $y = f(x_1, \ldots, x_n) = f(\bar{x})$, если
+$\forall \bar{x}: |x_i - x_i^{(0)}| \le a_i, i = 1, \ldots, n$ $\exists! \bar{y} \in (y^{(0)} - b, y^{(0)} + b)$ 
+$F(\bar{x}, y) = 0$
+
+Рассматриваем еще один прямоугольный параллелепипед:
+\[\left\{\,|x_i-x_i^{(0)}|\le c_i,\ i=1,\ldots,n;\quad |y-y^{(0)}|\le d,\right\} (3)\]
+
+\section*{Теорема о дифференцируемости неявной функции}
+\begin{theorem}
+Пусть функция \(F(x_1,\ldots,x_n,y)\) определена в прямоугольном параллелепипеде (3)
+и обладает следующими свойствами:
+\begin{enumerate}
+    \item $F(x^{(0)}, y^{(0)}) = 0$
+    \item $F(x, y)$ непрерывна в (3) как функция от $n + 1$ переменной
+    \item $F'_{x_i}(x, y), i = 1, \ldots, n$ и $F'_y(x, y)$ существуют и непрерывны в (3)
+    \item $F'_y(x^{(0)}, y^{(0)}) \neq 0$
+\end{enumerate}
+Тогда существует прямоугольный параллелепипед вида (2), в котором уравнение
+(1) однозначным образом определяет функцию \(y = f(x_1, \ldots, x_n)\), эта
+неявная функция непрерывна на параллелепипеде в n-мерном пространстве и
+имеет непрерывные частные производные.
+
+\end{theorem}
+\end{document}
